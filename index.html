@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="RaM's Blog - 技术随笔、开发经验、生活思考">
+    <title>RaM's Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RaM's Blog</div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="archive.html">归档</a>
+                <a href="friends.html">友链</a>
+                <a href="about.html">关于</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main>
+            <div id="homePage">
+                <!-- 文章列表会通过 JS 动态渲染 -->
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img class="avatar-img" src="images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+            </div>
+
+            <div class="stats-card">
+                <div class="card-title">📊 站点统计</div>
+                <ul class="stats-list">
+                    <li><span>文章总数</span><span id="postCount">加载中...</span></li>
+                    <li><span>标签数量</span><span>6</span></li>
+                    <li><span>友情链接</span><span id="friendCount">0</span></li>
+                </ul>
+            </div>
+
+            <div class="stats-card">
+                <div class="card-title">🏷️ 热门标签</div>
+                <div class="tag-cloud">
+                    <span class="tag">#Django</span>
+                    <span class="tag">#Vue</span>
+                    <span class="tag">#Python</span>
+                    <span class="tag">#AI</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+    function renderHomePage() {
+        const container = document.getElementById('homePage');
+        if (!container) return;
+        
+        const articleList = [
+            { id: "post1", title: "Django Vue AdminX 框架开发实战", date: "2026-03-22", tag: "Django", excerpt: "一套完整的企业级后台管理系统框架，基于 Django 5.2 和 Vue 3 开发，包含 RBAC 权限控制、代码生成器、操作日志等核心功能。", tags: "#Python #Django #Vue" },
+            { id: "post2", title: "从零搭建极简校园社区网站", date: "2026-03-20", tag: "前端", excerpt: "分享如何用 Vue 3 和 Django 快速搭建一个校园社区网站，包含首页帖子流、二手市场、开发接单、社团活动等模块。", tags: "#Vue #Django #社区" },
+            { id: "post3", title: "AI辅助开发：我的工作流实践", date: "2026-03-18", tag: "AI", excerpt: "分享我如何用 AI（Ollama + Qwen）辅助日常开发工作，从代码生成、调试辅助到文档撰写，效率提升3倍。", tags: "#AI #效率 #工具" }
+        ];
+        
+        container.innerHTML = articleList.map(article => `
+            <div class="post-card">
+                <span class="post-tag"># ${article.tag}</span>
+                <h2 class="post-title"><a href="posts/${article.id}.html">${article.title}</a></h2>
+                <div class="post-meta">📅 ${article.date} · 🕒 约 5分钟阅读</div>
+                <div class="post-excerpt">${article.excerpt}</div>
+                <div class="post-footer">
+                    <span>🏷️ ${article.tags}</span>
+                    <a href="posts/${article.id}.html">阅读全文 →</a>
+                </div>
+            </div>
+        `).join('');
+        
+        document.getElementById('postCount').innerText = articleList.length;
+        document.getElementById('friendCount').innerText = 3;
+    }
+    
+    renderHomePage();
+</script>
+</body>
+</html>

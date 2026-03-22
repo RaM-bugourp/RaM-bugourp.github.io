@@ -1,0 +1,449 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0D1117;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #E6EDF3;
+    line-height: 1.6;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(48, 54, 65, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(48, 54, 65, 0.15) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.navbar {
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(72, 80, 96, 0.3);
+    margin-bottom: 40px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #E6EDF3 0%, #9CA3AF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    color: #9CA3AF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: #E6EDF3;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 48px;
+}
+
+/* 文章卡片 */
+.post-card {
+    background: rgba(22, 27, 34, 0.7);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+    transition: all 0.2s;
+}
+
+.post-card:hover {
+    border-color: rgba(139, 148, 158, 0.5);
+    transform: translateY(-2px);
+}
+
+.post-tag {
+    display: inline-block;
+    background: rgba(139, 148, 158, 0.2);
+    padding: 4px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-bottom: 12px;
+}
+
+.post-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.post-title a {
+    color: #E6EDF3;
+    text-decoration: none;
+}
+
+.post-title a:hover {
+    color: #D9B48B;
+}
+
+.post-meta {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 16px;
+}
+
+.post-excerpt {
+    color: #C9D1D9;
+    font-size: 15px;
+    margin-bottom: 16px;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #9CA3AF;
+    border-top: 1px solid rgba(72, 80, 96, 0.3);
+    padding-top: 16px;
+}
+
+.post-footer a {
+    color: #D9B48B;
+    text-decoration: none;
+}
+
+/* 侧边栏 */
+.sidebar {
+    position: sticky;
+    top: 24px;
+}
+
+.profile-card {
+    background: rgba(22, 27, 34, 0.7);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+    text-align: center;
+}
+
+/* 头像样式 - 统一 */
+.avatar-img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 16px;
+    display: block;
+    border: 2px solid rgba(139, 148, 158, 0.5);
+    background-color: #2C3E50;
+}
+
+/* 关于页大头像 */
+.about-avatar-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    display: block;
+    border: 2px solid rgba(139, 148, 158, 0.5);
+}
+
+.profile-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.profile-bio {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin-bottom: 8px;
+}
+
+.stats-card {
+    background: rgba(22, 27, 34, 0.7);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    border-left: 3px solid #D9B48B;
+    padding-left: 12px;
+}
+
+.stats-list {
+    list-style: none;
+}
+
+.stats-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(72, 80, 96, 0.2);
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background: rgba(139, 148, 158, 0.15);
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    color: #9CA3AF;
+    text-decoration: none;
+}
+
+/* 归档页面 */
+.archive-list {
+    background: rgba(22, 27, 34, 0.7);
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+}
+
+.archive-year {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #D9B48B;
+}
+
+.archive-month-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 3px solid #D9B48B;
+}
+
+.archive-items {
+    list-style: none;
+    padding-left: 24px;
+}
+
+.archive-items li {
+    margin-bottom: 8px;
+}
+
+.archive-items a {
+    color: #E6EDF3;
+    text-decoration: none;
+}
+
+.archive-items a:hover {
+    color: #D9B48B;
+}
+
+.archive-date {
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-left: 12px;
+}
+
+/* 关于页面 */
+.about-card {
+    background: rgba(22, 27, 34, 0.7);
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+}
+
+.about-card h1 {
+    font-size: 28px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.about-card h2 {
+    margin-top: 24px;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.about-card p {
+    margin-bottom: 16px;
+}
+
+.about-card ul {
+    margin: 16px 0 16px 24px;
+}
+
+.about-card li {
+    margin-bottom: 8px;
+}
+
+.about-card a {
+    color: #D9B48B;
+    text-decoration: none;
+}
+
+/* 友情链接页面 */
+.friends-section {
+    background: rgba(22, 27, 34, 0.7);
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+}
+
+.friends-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #E6EDF3;
+}
+
+.friends-subtitle {
+    font-size: 14px;
+    color: #9CA3AF;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(72, 80, 96, 0.3);
+}
+
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.friend-card {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(13, 17, 23, 0.6);
+    border-radius: 16px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.friend-card:hover {
+    border-color: rgba(217, 180, 139, 0.5);
+    transform: translateY(-2px);
+    background: rgba(22, 27, 34, 0.8);
+}
+
+.friend-avatar {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2C3E50, #1F2A3A);
+}
+
+.friend-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.friend-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #E6EDF3;
+    margin-bottom: 6px;
+}
+
+.friend-desc {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin-bottom: 10px;
+}
+
+.friend-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.friend-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: rgba(139, 148, 158, 0.15);
+    border-radius: 20px;
+    color: #9CA3AF;
+}
+
+.friends-footer {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(72, 80, 96, 0.3);
+    font-size: 13px;
+    color: #9CA3AF;
+}
+
+/* 响应式 */
+@media (max-width: 800px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        position: static;
+    }
+    .nav-container {
+        flex-direction: column;
+    }
+    .about-card {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    .post-title {
+        font-size: 18px;
+    }
+    .friends-grid {
+        grid-template-columns: 1fr;
+    }
+}

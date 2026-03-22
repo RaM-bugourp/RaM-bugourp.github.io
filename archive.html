@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="文章归档 - RaM's Blog">
+    <title>归档 · RaM's Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RaM's Blog</div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="archive.html">归档</a>
+                <a href="friends.html">友链</a>
+                <a href="about.html">关于</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main id="archiveContent"></main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img class="avatar-img" src="images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+            </div>
+
+            <div class="stats-card">
+                <div class="card-title">📊 站点统计</div>
+                <ul class="stats-list">
+                    <li><span>文章总数</span><span id="postCount">3</span></li>
+                    <li><span>标签数量</span><span>6</span></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script>
+    // 归档页独立脚本（不引用 main.js，避免冲突）
+    const articleList = [
+        { id: "post1", title: "Django Vue AdminX 框架开发实战", date: "2026-03-22" },
+        { id: "post2", title: "从零搭建极简校园社区网站", date: "2026-03-20" },
+        { id: "post3", title: "AI辅助开发：我的工作流实践", date: "2026-03-18" }
+    ];
+
+    function renderArchivePage() {
+        const grouped = {};
+        articleList.forEach(article => {
+            const year = article.date.slice(0, 4);
+            const month = article.date.slice(5, 7);
+            if (!grouped[year]) grouped[year] = {};
+            if (!grouped[year][month]) grouped[year][month] = [];
+            grouped[year][month].push(article);
+        });
+        
+        let html = '<div class="archive-list">';
+        for (const year of Object.keys(grouped).sort().reverse()) {
+            html += `<div class="archive-year">${year}年</div>`;
+            for (const month of Object.keys(grouped[year]).sort().reverse()) {
+                html += `<div class="archive-month">
+                    <div class="archive-month-title">${month}月</div>
+                    <ul class="archive-items">`;
+                for (const article of grouped[year][month]) {
+                    html += `<li><a href="posts/${article.id}.html">${article.title}</a><span class="archive-date">${article.date}</span></li>`;
+                }
+                html += `</ul></div>`;
+            }
+        }
+        html += '</div>';
+        document.getElementById('archiveContent').innerHTML = html;
+    }
+    
+    renderArchivePage();
+</script>
+</body>
+</html>

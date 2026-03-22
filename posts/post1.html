@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Django Vue AdminX 框架开发实战 · RaM's Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RaM's Blog</div>
+            <div class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="../archive.html">归档</a>
+                <a href="../friends.html">友链</a>
+                <a href="../about.html">关于</a>
+                <a href="https://github.com/LeJennnn" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main>
+            <div class="post-card post-detail">
+                <span class="post-tag"># Django</span>
+                <h1>Django Vue AdminX 框架开发实战</h1>
+                <div class="post-meta">📅 2026-03-22 · 🕒 8分钟阅读</div>
+                <div class="post-content">
+                    <p>一套完整的企业级后台管理系统框架，基于 Django 5.2 和 Vue 3 开发。</p>
+                    
+                    <h2>核心功能</h2>
+                    <ul>
+                        <li>RBAC 权限控制（菜单、按钮、数据三级权限）</li>
+                        <li>代码生成器：一键生成前后端 CRUD 代码</li>
+                        <li>操作日志：中间件自动记录所有 API 请求</li>
+                        <li>任务调度：基于 APScheduler 的定时任务</li>
+                        <li>系统监控：CPU、内存、磁盘实时监控</li>
+                    </ul>
+                    
+                    <h2>上手框架</h2>
+                    <pre><code>git clone https://github.com/niezhicheng/django-vue-adminx
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver</code></pre>
+                    
+                    <p>这套框架已经帮助我快速交付了多个企业后台项目，大大提升了开发效率。</p>
+                    <p>框架并非本人开发，但是超高的完成度实在让我忍不住想分享完整源码</p>
+                    <p>原框架：<a href="https://github.com/niezhicheng/django-vue-adminx" target="_blank" rel="noopener noreferrer">Django Vue AdminX</a></p>
+                </div>
+                <div class="post-footer" style="margin-top: 24px;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <!-- <div class="avatar">R</div> -->
+                <img class="avatar-img" src="../images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
