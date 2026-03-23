@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Django Vue AdminX 框架开发实战 · RaM's Blog</title>
+    <title>算法竞赛入门 · ACMer 起步指南 · RaM's Blog</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 </head>
 <body>
 <div class="container">
@@ -16,7 +17,7 @@
                 <a href="../archive.html">归档</a>
                 <a href="../friends.html">友链</a>
                 <a href="../about.html">关于</a>
-                <a href="https://github.com/LeJennnn" target="_blank">GitHub</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
             </div>
         </div>
     </nav>
@@ -24,15 +25,109 @@
     <div class="main-grid">
         <main>
             <div class="post-card post-detail">
-                <span class="post-tag">还在编写</span>
+                <span class="post-tag"># 算法竞赛</span>
+                <h1>算法竞赛入门 · ACMer 起步指南</h1>
+                <div class="post-meta">📅 2026-03-23 · 🕒 12分钟阅读</div>
+                <div class="post-content">
+                    
+                    <p>很多刚接触算法竞赛的同学都会问：<strong>“我是零基础，怎么开始？”</strong> 这篇文章写给准备入坑 ACM/ICPC、蓝桥杯、CSP 等算法竞赛的萌新，帮你理清思路，少走弯路。</p>
 
+                    <h2>一、心态准备：竞赛不是速成</h2>
+                    <p>算法竞赛考察的是 <strong>算法思维 + 代码实现能力 + 比赛经验</strong>，不是背模板就能拿奖的。前期可能会很痛苦，一道题调一整天很正常。但坚持下来，你会发现自己的逻辑思维和代码能力会有质的飞跃。</p>
+                    <blockquote>
+                        <p>“AC 不是终点，WA 也不是终点，放弃才是。” —— 某退役 ACMer</p>
+                    </blockquote>
 
+                    <hr>
+
+                    <h2>二、语言选择：C++ 是主流</h2>
+                    <p>国内算法竞赛（ICPC、蓝桥杯、CCPC）默认语言是 <strong>C++</strong>，因为 STL 库提供了 vector、set、map、sort 等高效工具。如果你只会 Python，也可以参加，但部分 OJ 对 Python 的时间限制比较严格。</p>
+                    <ul>
+                        <li><strong>C++</strong>：推荐，掌握 STL 基本够用</li>
+                        <li><strong>Python</strong>：适合入门练思维，但比赛可能吃亏，因为运行效率太低了，同样的逻辑可能就会超时</li>
+                        <li><strong>Java</strong>：也可以，但代码量偏大 （真的有一个你们的学长是拿Java写算法题的）</li>
+                    </ul>
+
+                    <hr>
+
+                    <h2>三、OJ 平台推荐（刷题网站）</h2>
+                    <ul>
+                        <li><strong>洛谷</strong> (luogu.com.cn) — 国内最友好的 OJ，题解丰富，适合新手</li>
+                        <li><strong>Leetcode</strong> (leetcode.com) — 类型丰富，题单覆盖面广，推荐 '灵茶山艾府' 的入门题单</li>
+                        <li><strong>牛客网</strong> (nowcoder.com) — 国内校招刷题，有竞赛模拟</li>
+                        <li><strong>POJ / HDUOJ</strong> — 老牌 OJ，经典题多</li>
+                    </ul>
+                    <hr>
+                    <h2>四、刷题路线（按难度递进）</h2>
+                    <p>不要一开始就啃难题，容易劝退。推荐顺序：</p>
+                    <ol>
+                        <li><strong>语法基础</strong> — 循环、数组、字符串、函数</li>
+                        <li><strong>简单算法</strong> — 枚举、模拟、贪心、排序</li>
+                        <li><strong>数据结构</strong> — 栈、队列、链表、并查集、哈希表</li>
+                        <li><strong>搜索</strong> — DFS、BFS、回溯</li>
+                        <li><strong>图论</strong> — 最短路、最小生成树、拓扑排序</li>
+                        <li><strong>动态规划 (DP)</strong> — 背包、线性 DP、区间 DP</li>
+                        <li><strong>数论/数学</strong> — 素数筛、GCD、快速幂</li>
+                        <li><strong>高级专题</strong> — 线段树、网络流、字符串匹配</li>
+                    </ol>
+                    <hr>
+                    <h2>五、推荐</h2>
+                    <ul>
+                        <li><strong>《算法竞赛入门经典》</strong>（紫书）— 刘汝佳 著，经典教材，适合系统学习</li>
+                        <li><strong>《算法竞赛进阶指南》</strong>（蓝书）— 李煜东 著，进阶必备</li>
+                        <li><strong>《挑战程序设计竞赛》</strong>（白书）— 日本选手写的，代码简洁</li>
+                        <li><strong>《算法导论》</strong> — 当字典查，不推荐新手通读</li>
+                    </ul>
+                    <hr>
+                    <h2>六、关于比赛</h2>
+                    <ul>
+                        <li><strong>Leetcode 周赛</strong> — 频率高，不定期大厂内推</li>
+                        <li><strong>Codeforces</strong> — 全球最活跃的竞赛平台 ＆ ACMer的训练赛平台</li>
+                        <li><strong>牛客小白月赛</strong> — 每月一场，难度友好</li>
+                    </ul>
+                    <hr>
+                    <h2>七、学习资源</h2>
+                    <ul>
+                        <li><strong>洛谷题单</strong> — 按知识点分类，跟刷就行</li>
+                        <li><strong>OI Wiki</strong> (oi-wiki.org) — 中文算法竞赛百科全书，免费且全面</li>
+                        <li><strong>B站/YouTube</strong> — 搜索“算法竞赛入门”，很多高质量视频</li>
+                        <li><strong>GitHub 算法模板</strong> — 收藏几个常用模板，方便复用</li>
+                    </ul>
+                    <hr>
+                    <h2>八、给新手的几点建议</h2>
+                    <ul>
+                        <li>✅ <strong>先刷 100 道简单题</strong>，培养代码手感</li>
+                        <li>✅ <strong>不要只背代码</strong>，要理解思路，多写注释</li>
+                        <li>✅ <strong>学会看题解</strong>，但看完要自己重新 AC 一遍</li>
+                        <li>✅ <strong>参加一场 Codeforces 比赛</strong>，感受真实赛制</li>
+                        <li>✅ <strong>找队友一起刷题</strong>，交流讨论效率更高</li>
+                        <li>✅ <strong>写博客记录错题</strong>，建立自己的错题本</li>
+                    </ul>
+                    <hr>
+                    <h2>九、常见误区</h2>
+                    <ul>
+                        <li>❌ 一上来就刷难题 → 容易放弃</li>
+                        <li>❌ 只看不写 → 眼高手低</li>
+                        <li>❌ 盲目追求题数 → 不如把一道题吃透</li>
+                        <li>❌ 忽略比赛经验 → 平时刷题和比赛节奏完全不同</li>
+                    </ul>
+
+                    <hr>
+                    <p>算法竞赛是一条漫长但值得的路。无论你是为了升学、找工作，还是单纯热爱编程，坚持下去，终会看到自己的成长。</p>
+                    <p>祝你 AC 如风，早日成为大佬！</p>
+                    <p style="color: #D9B48B; margin-top: 20px;">—— RaM</p>
+                </div>
+                <div class="post-footer" style="margin-top: 24px;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
+            </div>
+        </main>
 
         <aside class="sidebar">
             <div class="profile-card">
                 <img class="avatar-img" src="../images/OIP.webp" alt="RaM头像">
                 <div class="profile-name">RaM</div>
-                <div class="profile-bio">软件工程 · 独立开发者</div>
+                <div class="profile-bio">全栈开发 · ACMer 养老选手</div>
                 <div class="profile-bio">热爱代码，喜欢折腾</div>
             </div>
         </aside>
