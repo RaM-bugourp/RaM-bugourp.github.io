@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>关于 BuGroup ，关于 我们</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 确保二维码图片样式圆角且适配侧边栏宽度 */
+        .qrcode-img {
+            width: 100%;
+            max-width: 180px;
+            border-radius: 16px;
+            margin-top: 16px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+        .qrcode-img:hover {
+            transform: scale(1.02);
+        }
+        /* 在移动端稍微缩小二维码尺寸 */
+        @media (max-width: 768px) {
+            .qrcode-img {
+                max-width: 140px;
+                border-radius: 14px;
+            }
+        }
+        /* 可选：给二维码区域增加一点上边距和分割感 */
+        .qr-section {
+            text-align: center;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .qr-caption {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RaM's Blog</div>
+            <div class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="../archive.html">归档</a>
+                <a href="../friends.html">友链</a>
+                <a href="../about.html">关于</a>
+                <a href="https://github.com/LeJennnn" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main>
+            <div class="post-card post-detail">
+                <span class="post-tag"># BuGroup</span>
+                <h1>关于 BuGroup ，关于我们</h1>
+                <div class="post-meta">📅 2026-03-29 · 🕒 7分钟阅读</div>
+                <div class="post-content">
+                    <p>BuGroup 是由我和 <strong>Witherwithwinter</strong> 创办的。说是“创办”，实际上还没有具体组织。名字来源于 Witherwithwinter 大一时的 IDEA，说实话我们也不知道未来这个名字会走到哪一步。但好歹也是慢慢在做了，尽管我现在也只是个菜鸡。</p>
+                    
+                    <p>由于我基本没有长期只关注一个方向（比如算法或者 CTF 啥的），而另一位忙着补题，导致这个组织的方向也一直没定下来。后来想了想：算了吧，就算是啥都做吧，好歹也都学过刷过。至少现在新人进来，<strong>算法、开发、Linux 还有安全</strong>都能给点资源和方向以及社区。</p>
+                    
+                    <h2>目前的状态 & 未来的期望</h2>
+                    <p>目前我们只有各自的个人博客，分享一下题解还有经验啥的（具体链接见友链）。但是我的构想中，是想做一个独立于校内工作室和组织外的<strong>大型网站</strong>——集合发帖、评分、社区交流甚至开发接单的内容。这个构思目前还停留在我的 Cursor 上……</p>
+                    
+                    <p>关于我们前面两届的学长学姐，我并不知道有技术力很高的。主要原因也是我水平比较低，合作机会较少，没有机会接触。但是我们同届的同学里，不论是算法天花板，还是两位大一就开始研究前端三件套以及 Golang 的，相对于本校中我接触的大二同时期水平来说，已经是最高的那一批了。</p>
+                    
+                    <p>至于新大一，两场招新赛下来，有点夸张了——刷过题或者对语法比较熟悉的人都不多。可是我认为<strong>前期正确的引导和资源分享，完全可以让新人的平均水平上升不止一个档次</strong>。这也是我们想做的事情。</p>
+                    
+                    <blockquote>
+                        <p>在摸索了一年半的时间后，项目也正在筹备落地。今年六月份之前，就能看见我们的网站上线了，暂定地址就是 <strong>bugroup.xyz</strong>（.com 版需要 24w，买不起）。如果你有任何 idea 或者问题，随时联系我们，我没单子的话基本都是秒回信息。</p>
+                    </blockquote>
+                    
+                    <h2>总结 & 邀请</h2>
+                    <p>BuGroup 是一个由我和 witherwithwinter 创办的独立组织，旨在记录我们的学习历程，并且召集和培养想加入我们的 coder。这里不仅有算法指导、题目讲解，也有开发经验、源码分享。</p>
+                    
+                    <p>如果你对技术有热情，不想被单一赛道束缚，或者只是想找一个能一起折腾代码、分享 bug 与解法的角落——</p>
+                    
+                    <p style="font-size: 1.2rem; font-weight: 500; margin-top: 24px;">如果你想加入我们。</p>
+                    
+                    <div style="background: #8f9ca9; padding: 16px 20px; border-radius: 12px; margin: 28px 0 16px; border-left: 4px solid #2c7da0;">
+                        <p style="margin: 0 0 6px 0;"><strong>📬 联系方式 / 找到我们</strong></p>
+                        <p style="margin: 0;">🌐 暂定官网：<a href="http://bugroup.xyz" target="_blank" rel="noopener noreferrer">bugroup.xyz</a> (当然你现在肯定访问不了的)
+                        <br>💬 博客友链内有我们各自的个人站点，或者你也可以扫描右侧二维码进群真实我<br>
+                        <br>✉️ 假如你想加入我们成为管理员以及部分技术栈方向的负责人，请准备一份简历或者总结，联系 QQ：1963561552（算法方向已有负责人）<br>
+                        <p style="margin: 0;"><strong>另外如果你参加过青鸟工作室的招新赛，那么你也可以在我的友链中找到出题人Witherwithwinter的个人博客查看详细题解 </strong></p>
+                    </div>
+                    
+                    <p style="margin-top: 28px;">QQ群见！</p>
+                    
+                    <p>—— RaM & Witherwithwinter</p>
+                </div>
+                <div class="post-footer" style="margin-top: 24px;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img class="avatar-img" src="../images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+                
+                <!-- 在头像下方加入 QQ 群分享二维码，圆角直接应用 -->
+                <div class="qr-section">
+                    <img class="qrcode-img" src="../images/team.jpg" alt="QQ群分享二维码 - 欢迎加入BuGroup">
+                    <div class="qr-caption">📱 扫码加入 BuGroup 交流群</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
