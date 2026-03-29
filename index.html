@@ -7,6 +7,9 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
     <title>RaM's Blog</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/OIP.webp">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/OIP.webp">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/OIP.webp">
 </head>
 <body>
 <div class="container">
@@ -41,9 +44,9 @@
             <div class="stats-card">
                 <div class="card-title">📊 站点统计</div>
                 <ul class="stats-list">
-                    <li><span>文章总数</span><span id="postCount">加载中...</span></li>
-                    <li><span>标签数量</span><span>6</span></li>
-                    <li><span>友情链接</span><span id="friendCount">0</span></li>
+                    <li><span>文章总数</span><span>6</span></li>
+
+                    <li><span>友情链接</span><span id="friendCount">2</span></li>
                 </ul>
             </div>
 
@@ -72,7 +75,7 @@
             // { id: "post9", title: "", date: "2026-", tag: "", excerpt: "", tags: " " },
             // { id: "post8", title: "", date: "2026-", tag: "", excerpt: "", tags: " " },
             // { id: "post7", title: "", date: "2026-", tag: "", excerpt: "", tags: " " },
-            // { id: "post6", title: "", date: "2026-", tag: "", excerpt: "", tags: " " },
+            { id: "post6", title: "关于 BuGroup ，关于我们", date: "2026-03-29", tag: "BuGroup", excerpt: "BuGroup 是由我和 Witherwithwinter 创办的独立组织。", tags: "#组织" },
             { id: "post5", title: "我想当个数字游民", date: "2026-03-26", tag: "个人开发", excerpt: "你准备什么时候开始呢？", tags: "#全栈 " },
             { id: "post4", title: "你想活出怎么样的人生", date: "2026-03-25", tag: ":)", excerpt: "每个人都会死的，所以来看电视吧", tags: "#o.O " },
             { id: "post3", title: "VibeCoding · 个人开发者的AI时代生存指南", date: "2026-03-25", tag: "AI", excerpt: "VibeCoding的本质：效率与门槛的革命。", tags: "#AI #效率 #工具" },
@@ -93,8 +96,8 @@
             </div>
         `).join('');
         
-        document.getElementById('postCount').innerText = articleList.length;
-        document.getElementById('friendCount').innerText = 3;
+        // document.getElementById('postCount').innerText = articleList.length;
+        document.getElementById('friendCount').innerText = 2;
     }
     
     renderHomePage();
