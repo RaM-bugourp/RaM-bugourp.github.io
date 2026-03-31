@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>后端安全 · 密码哈希存储 · RaM's Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 16px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .highlight {
+            background: #2d2d3a;
+            padding: 2px 4px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+        .note-box {
+            background: #867843;
+            border-left: 4px solid #c0811c;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+        .analogy {
+            background: #e8f0fe;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .analogy-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 12px;
+        }
+        .analogy-arrow {
+            font-size: 28px;
+            color: #8b5cf6;
+            display: flex;
+            align-items: center;
+        }
+        @media (max-width: 640px) {
+            .analogy {
+                flex-direction: column;
+            }
+            .analogy-arrow {
+                transform: rotate(90deg);
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RaM's Blog</div>
+            <div class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="../archive.html">归档</a>
+                <a href="../friends.html">友链</a>
+                <a href="../about.html">关于</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main>
+            <div class="post-card post-detail">
+                <span class="post-tag"># 后端安全</span>
+                <h1>后端开发第一步：密码哈希存储</h1>
+                <div class="post-meta">📅 2026-03-31 · 🕒 8分钟阅读</div>
+                <div class="post-content">
+                    
+                    <h2>一、一个躲不开的问题</h2>
+                    <p>当我们开始接触后端开发，不可避免要面对用户的敏感数据存储——密码、账户余额、API密钥……恶意渗透攻击下，<strong>数据库暴露是很难完全避免的</strong>。所以我们不仅要从前端到数据库调用层层设防，对于数据本身，也要做好被窃取的准备。</p>
+                    <p>于是，在后端开发中，<strong class="highlight">敏感数据哈希存储</strong>成为了必须进行的基本安全规范。</p>
+                    
+                    <h2>二、用“做菜”来理解哈希</h2>
+                    <div class="analogy">
+                        <div class="analogy-item">
+                            <div style="font-size: 40px;">🍅🥚</div>
+                            <div style="font-weight: 600; margin-top: 8px;">原材料</div>
+                            <div style="font-size: 14px; color: #555;">用户输入的密码</div>
+                        </div>
+                        <div class="analogy-arrow">→</div>
+                        <div class="analogy-item">
+                            <div style="font-size: 40px;">🧂🧑‍🍳</div>
+                            <div style="font-weight: 600; margin-top: 8px;">烹饪过程 + 盐</div>
+                            <div style="font-size: 14px; color: #555;">哈希算法 + 随机盐</div>
+                        </div>
+                        <div class="analogy-arrow">→</div>
+                        <div class="analogy-item">
+                            <div style="font-size: 40px;">🍳</div>
+                            <div style="font-weight: 600; margin-top: 8px;">成品菜</div>
+                            <div style="font-size: 14px; color: #555;">数据库中的哈希值</div>
+                        </div>
+                    </div>
+                    <p>你能从一盘番茄炒蛋里，还原出当初放了多少克盐吗？<strong>不能</strong>。但只要盐差了一粒，整盘菜的味道就完全不同。这正好对应了哈希的两个核心特性：<strong>单向性</strong>（不可逆）和<strong>雪崩效应</strong>（输入微小变化，输出天差地别）。</p>
+                    <p>这里“盐”——也就是我们常说的 <strong class="highlight">salt</strong>，就是哈希过程中生成的随机密钥。即使两个人密码相同，盐不一样，最终存进数据库的哈希值也完全不同。</p>
+                    
+                    <h2>三、哈希存储，到底怎么存？</h2>
+                    <p>当后端收到用户密码，不会直接存明文。而是随机生成一个 salt，然后用它对密码做哈希，最后把 <code>salt:哈希值</code> 一起存入数据库。</p>
+                    <div class="code-block">
+                        <pre><code>import os
+import hashlib
+import hmac
+import logging
+
+def new_hash_password(password):
+    # 生成32位随机盐
+    salt = os.urandom(32)
+    logging.info('Salt generated')
+    
+    # hmac.new(密钥, 消息, 摘要算法)
+    pwd_hash = hmac.new(salt, password.encode('utf-8'), hashlib.sha256).hexdigest()
+    
+    # 返回"盐:哈希值"的格式，方便存入数据库
+    return f"{salt.hex()}:{pwd_hash}"</code></pre>
+                    </div>
+                    <p>存入数据库的一条记录大概长这样：<br>
+                    <code>a3f2c1...:8d969eef6ecad3c29a3a629280e686cf...</code><br>
+                    冒号前面是盐的十六进制，后面是哈希结果。</p>
+                    
+                    <h2>四、那登录的时候怎么验证？</h2>
+                    <p>有人可能会问：“我自己都不知道哈希值对应的明文是什么，怎么判断用户输对了密码？”</p>
+                    <p>这就是我们保存 salt 的原因。我们无法从哈希反推出原始密码，但我们可以重复“加盐 → 哈希”的过程。</p>
+                    <div class="code-block">
+                        <pre><code>def verify_password(input_password, stored_password):
+    # 从数据库里存的字符串中分离出盐和哈希值
+    salt_hex, stored_hash = stored_password.split(':')
+    salt = bytes.fromhex(salt_hex)  # 转回二进制盐
+    
+    # 用同样的盐对用户这次输入的密码做哈希
+    new_hash = hmac.new(salt, input_password.encode('utf-8'), hashlib.sha256).hexdigest()
+    
+    # 对比两个哈希值是否相同
+    if stored_hash == new_hash:
+        return True
+    else:
+        return False</code></pre>
+                    </div>
+                    <p>验证流程就是：</p>
+                    <ul>
+                        <li>用户登录时输入密码 → 取出数据库中存的 <code>salt:哈希值</code></li>
+                        <li>用相同的 salt 对输入密码重新哈希 → 得到一个新的哈希值</li>
+                        <li>如果新哈希值和数据库里存的哈希值相等 → 密码正确，允许登录</li>
+                    </ul>
+                    
+                    <h2>五、核心思想：用哈希做验证，而不是做记录</h2>
+                    <div class="note-box">
+                        <p><strong>📌 一句话总结</strong><br>
+                        由于哈希的单向性，数据库中的密码不用于“记录”，而仅仅用于“验证后续登录”。即使黑客把整张表拖走，也拿不到任何原始密码。从根源上避免了数据泄露。</p>
+                    </div>
+                    <p>这就是为什么现代系统几乎都用 bcrypt、Argon2 或我们上面这种 HMAC-SHA256 + 随机盐的方案来存储密码。它把“保管密码”这件事，变成了“保管一种不可逆的指纹”。</p>
+                    <p>而对于我们开发者来说，实现这套机制并不复杂，但它决定了你的用户数据是不是裸奔。</p>
+                    
+                    <h2>六、写在最后</h2>
+                    <p>后端开发的世界里，安全永远不是“可选”。不止于哈希存储，往后还有 SQL 注入、XSS、CSRF、权限控制……但至少，先把密码这件事做好，是对用户最基本的尊重。</p>
+                    <hr>
+                    <p style="color: #D9B48B; margin-top: 20px;">—— RaM，写于 2026年3月31日</p>
+                </div>
+                <div class="post-footer" style="margin-top: 24px;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img class="avatar-img" src="../images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
