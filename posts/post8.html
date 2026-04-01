@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>日志：后端开发的另一只眼 · RaM's Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 16px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .highlight {
+            background: #2d2d3a;
+            padding: 2px 4px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+        .note-box {
+            background: #1e2a2f;
+            border-left: 4px solid #f5a623;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+        .bug-scene {
+            background: #2d1f1f;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            border: 1px solid #4a2a2a;
+        }
+        .log-line {
+            font-family: monospace;
+            font-size: 13px;
+            background: #0f0f1a;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            color: #9bcd6c;
+        }
+        .badge {
+            display: inline-block;
+            background: #3b3b4f;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        hr {
+            margin: 28px 0;
+            border: none;
+            height: 1px;
+            background: #2d2d3a;
+        }
+        .tip-box {
+            background: #1e2a2a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            border: 1px solid #2c6e6e;
+        }
+        .log-level-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .log-level-table th, .log-level-table td {
+            border: 1px solid #3a3a4a;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .log-level-table th {
+            background: #2a2a3a;
+        }
+        .github-link {
+            display: inline-block;
+            background: #2d2d3a;
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #cdd6f4;
+            margin-top: 12px;
+            transition: all 0.2s;
+        }
+        .github-link:hover {
+            background: #6366f1;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RaM's Blog</div>
+            <div class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="../archive.html">归档</a>
+                <a href="../friends.html">友链</a>
+                <a href="../about.html">关于</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main>
+            <div class="post-card post-detail">
+                <span class="post-tag"># 后端规范</span>
+                <h1>日志：后端开发的另一只眼</h1>
+                <div class="post-meta">📅 2026-04-01 · 🕒 8分钟阅读</div>
+                <div class="post-content">
+                    
+                    <h2>一、还有Call back</h2>
+                    <p>在上一次的哈希存储文章里，代码块中藏着这么一行：</p>
+                    <div class="code-block">
+                        <pre><code>logging.info('The salt has generated')</code></pre>
+                    </div>
+                    <p>看起来轻飘飘，像是一句自言自语。但对于写这行代码的人来说，它可能是未来某个凌晨三点、被甲方电话吵醒时，唯一能救命的东西。</p>
+                    <p><strong>这就是日志。</strong> 绝大多数新手开发者刚开始不会考虑它——因为初期的甲方成熟度不够、项目规模也小，出bug直接翻代码看一眼就行。但项目一旦跑起来，用户多起来，或者甲方开始认真运营，“查日志”就成了唯一的破案手段。</p>
+                    
+                    <h2>二、除非你是外包</h2>
+                    <p>假设你写了一个哈希存储+验证的功能，上线后用户突然反馈“密码正确但登不上”。你盯着代码看了半天，逻辑明明没问题：</p>
+                    <ul>
+                        <li>注册时存了 salt 和哈希</li>
+                        <li>登录时取出 salt 重新计算</li>
+                        <li>两个哈希值一模一样</li>
+                    </ul>
+                    <p>可用户就是登不上去。问题出在哪？</p>
+                    <ul>
+                        <li>数据库里的数据同步出错了？</li>
+                        <li>前端传过来的密码被截断了？</li>
+                        <li>后端收到的密码编码不对？</li>
+                        <li>验证函数根本没被调用？</li>
+                    </ul>
+                    <p>如果没有日志，你只能靠猜，或者让用户陪你一起“重现现场”。但有了日志，情况完全不同。</p>
+                    
+                    <div class="bug-scene">
+                        <div style="font-weight: 600; margin-bottom: 12px;">🐛 真实场景复现（用户反馈登录失败）</div>
+                        <div class="log-line"><span class="badge">INFO</span> 2026-04-01 21:33:12 - 收到登录请求 | 用户名: zhangfei | IP: 221.3.xxx.xx</div>
+                        <div class="log-line"><span class="badge">DEBUG</span> 2026-04-01 21:33:12 - 从数据库查询用户: zhangfei</div>
+                        <div class="log-line"><span class="badge">DEBUG</span> 2026-04-01 21:33:12 - 查询结果: 用户存在, salt=7f2a3b..., stored_hash=8d96...</div>
+                        <div class="log-line"><span class="badge">DEBUG</span> 2026-04-01 21:33:12 - 对输入密码重新哈希: 输入长度=8, 新哈希=9a3f...</div>
+                        <div class="log-line"><span class="badge" style="background:#9b4a3f;">WARNING</span> 2026-04-01 21:33:12 - 哈希比对失败 | 数据库哈希: 8d96... | 计算哈希: 9a3f...</div>
+                        <div class="log-line"><span class="badge" style="background:#9b4a3f;">WARNING</span> 2026-04-01 21:33:12 - 登录失败: 密码错误 | 用户名: zhangfei</div>
+                    </div>
+                    <p>看到这条日志，你瞬间明白：<strong>密码确实错了</strong>，不是代码bug，也不是数据库问题。直接告诉用户“密码错误”就行，不用熬夜翻代码。</p>
+                    <p>但假如日志里出现了另一组信息：</p>
+                    <div class="bug-scene">
+                        <div class="log-line"><span class="badge">ERROR</span> 2026-04-01 21:35:01 - 数据库查询异常: (connector, 'MySQL server has gone away')</div>
+                        <div class="log-line"><span class="badge">ERROR</span> 2026-04-01 21:35:01 - 函数: verify_password() 执行失败 | traceback: ...</div>
+                    </div>
+                    <p>你就知道——根本就不是密码问题，是数据库连接断了。日志帮你精准定位到哪一层崩了，而不是让你在“前端”和“后端”之间反复横跳。</p>
+                    
+                    <h2>三、打个大西瓜哦</h2>
+                    <p>很多新手把所有日志都打成 INFO，或者用 print 替代，这是典型的“自毁长城”。Python logging 模块定义了五个标准级别，用对了事半功倍：</p>
+                    <table class="log-level-table">
+                        <thead>
+                            <tr><th>级别</th><th>用途</th><th>示例场景</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>DEBUG</td><td>调试信息，开发/测试环境用</td><td>变量值、SQL语句、缓存命中</td></tr>
+                            <tr><td>INFO</td><td>正常流程关键节点</td><td>请求开始/结束、用户登录、订单创建</td></tr>
+                            <tr><td>WARNING</td><td>可恢复的异常</td><td>密码错误、参数缺失、重试机制触发</td></tr>
+                            <tr><td>ERROR</td><td>功能受损但程序未崩溃</td><td>数据库连接失败、API调用超时</td></tr>
+                            <tr><td>CRITICAL</td><td>严重错误，程序可能退出</td><td>磁盘写满、核心服务宕机</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="tip-box">
+                        <p><strong>💡 实战技巧</strong>：开发环境用 DEBUG 级别，生产环境用 INFO 或 WARNING，避免日志刷爆磁盘。同时可以给不同的模块设置独立的日志文件，例如 <code>auth.log</code>、<code>db.log</code>。</p>
+                    </div>
+                    
+                    <h2>四、日志到底在记什么？</h2>
+                    <p>很多人以为日志就是 console.log，那顶多算“临时打印”。真正的项目日志至少应该包含：</p>
+                    <ul>
+                        <li><strong>时间戳</strong>：什么时候发生</li>
+                        <li><strong>级别</strong>：DEBUG / INFO / WARNING / ERROR / CRITICAL</li>
+                        <li><strong>位置</strong>：哪个文件、哪一行、哪个函数</li>
+                        <li><strong>上下文</strong>：用户名、IP、请求ID、关键参数</li>
+                        <li><strong>错误堆栈</strong>：异常发生的完整链条</li>
+                    </ul>
+                    <p>上面那段哈希代码里，我们其实只打了“Salt generated”这一条。对于一个正式项目，至少要这么打：</p>
+                    <div class="code-block">
+                        <pre><code>def new_hash_password(password):
+    logging.info(f"开始哈希处理 | 密码长度: {len(password)}")
+    salt = os.urandom(32)
+    logging.debug(f"盐已生成 | 盐长度: {len(salt)}")
+    pwd_hash = hmac.new(salt, password.encode('utf-8'), hashlib.sha256).hexdigest()
+    logging.info(f"哈希完成 | 结果长度: {len(pwd_hash)}")
+    return f"{salt.hex()}:{pwd_hash}"</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <pre><code>def verify_password(input_password, stored_password):
+    logging.info("开始密码验证")
+    try:
+        salt_hex, stored_hash = stored_password.split(':')
+        logging.debug(f"盐解析成功 | 盐长度: {len(salt_hex)}")
+        salt = bytes.fromhex(salt_hex)
+        new_hash = hmac.new(salt, input_password.encode('utf-8'), hashlib.sha256).hexdigest()
+        result = (stored_hash == new_hash)
+        logging.info(f"验证完成 | 结果: {result}")
+        return result
+    except Exception as e:
+        logging.error(f"验证过程异常 | 错误: {str(e)}", exc_info=True)
+        return False</code></pre>
+                    </div>
+                    <p>这样哪怕你在睡觉，第二天起来翻日志，也能一眼看出是盐格式坏了，还是输入编码有问题，还是数据库存的数据缺斤少两。</p>
+                    
+                    <h2>五、你也曾为删了浏览记录懊悔吗</h2>
+                    <div class="note-box">
+                        <p><strong>📌 飞机黑匣子记录飞行数据，日志记录程序运行数据。</strong><br>
+                        没有它，坠机（崩服）后你只能靠猜。有它，你甚至能还原事故发生前 10 秒的每一条指令。</p>
+                    </div>
+                    <p>对于接单开发来说，日志还有一个隐藏价值：<strong>向甲方证明你在干活，也证明问题出在谁身上</strong>。当甲方说“你的代码有问题”时，你甩出一段带时间戳的日志，清晰显示是服务器磁盘满了 / 第三方接口超时 / 他们的人改错了配置，对方哑口无言，你也不用背锅。</p>
+                    
+                    <h2>六、所以我喜欢开无痕模式</h2>
+                    <p>生产环境跑久了，日志文件会越来越大。Python 的 <code>RotatingFileHandler</code> 可以按大小自动切分：</p>
+                    <div class="code-block">
+                        <pre><code>from logging.handlers import RotatingFileHandler
+
+handler = RotatingFileHandler(
+    'app.log',
+    maxBytes=10 * 1024 * 1024,   # 10MB
+    backupCount=5                 # 保留5个备份
+)</code></pre>
+                    </div>
+                    <p>另外，千万别把密码、token 之类的敏感信息直接打进日志。可以用脱敏工具或者手动截断：</p>
+                    <div class="code-block">
+                        <pre><code>def mask_sensitive(data):
+    if 'password' in data:
+        data['password'] = '***'
+    return data</code></pre>
+                    </div>
+                    
+                    <h2>七、我趣，不早打</h2>
+                    <p>哈希存储是数据泄露的最后一道防线，而<strong>日志是你排查问题的第一把手术刀</strong>。</p>
+                    <p>初学时你觉得它多余，是因为你还没碰到真正让你手足无措的bug。一旦遇到，你会恨不得穿越回去，在每个关键节点塞满日志。</p>
+                    <p>所以，下次写代码时——</p>
+                    <ul>
+                        <li>函数入口打一条 INFO</li>
+                        <li>关键分支打一条 DEBUG</li>
+                        <li>异常捕获打一条 ERROR（带上堆栈）</li>
+                        <li>外部调用（数据库、API）前后都打一条</li>
+                    </ul>
+                    <p>实际开发中，日志的配置存在很多要点和技巧，我们会在下一篇文章中为你讲解。如果你感兴趣，不如去我的 GitHub 仓库点一个免费的 ⭐，催更站主——</p>
+                    <div style="text-align: center; margin: 32px 0 20px;">
+                        <a href="https://github.com/RaM-bugourp" class="github-link" target="_blank" rel="noopener noreferrer">
+                            🐙 给 RaM 的 GitHub 点个 Star
+                        </a>
+                    </div>
+                    <hr>
+                    <p style="color: #D9B48B; margin-top: 20px;">—— RaM，写于 2026年4月1日</p>
+                    <p style="font-size: 14px; color: #8f9ca9;">📎 附：文首那段哈希存储的完整日志配置（可直接复用）</p>
+                    <div class="code-block">
+                        <pre><code>import logging
+import os
+
+log_dir = 'log'
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+logging.basicConfig(
+    filename='log/info.log',
+    level=logging.INFO,
+    format='%(asctime)s - [%(levelname)s] - %(filename)s:%(lineno)d - %(funcName)s() - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)</code></pre>
+                    </div>
+                </div>
+                <div class="post-footer" style="margin-top: 24px;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img class="avatar-img" src="../images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
