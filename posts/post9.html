@@ -3,89 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>少年意气 · RaM's Blog</title>
+    <title>从Vibe Coding到Agent工作流：40天没写代码，产出却超过去一年半</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        .rant-box {
-            background: #1a1a2e;
-            border-radius: 24px;
-            padding: 28px;
-            margin: 32px 0;
-            border: 1px solid #2d2d4a;
-        }
-        .rant-text {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #e2e2e8;
-        }
-        .rant-text p {
-            margin-bottom: 18px;
-        }
-        .rant-text strong {
-            color: #ffb347;
-        }
-        .rant-quote {
-            background: #0f0f1a;
-            padding: 16px 20px;
+        .qrcode-img {
+            width: 100%;
+            max-width: 180px;
             border-radius: 16px;
-            margin: 20px 0;
-            border-left: 4px solid #f5a623;
+            margin-top: 16px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
         }
-        .rant-highlight {
-            background: #2a2a3a;
+        .qrcode-img:hover {
+            transform: scale(1.02);
+        }
+        @media (max-width: 768px) {
+            .qrcode-img {
+                max-width: 140px;
+                border-radius: 14px;
+            }
+        }
+        .qr-section {
+            text-align: center;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .qr-caption {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+        .mermaid-wrapper {
+            background: transparent;
+            margin: 24px 0;
+            padding: 16px;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+        .mermaid {
+            background: transparent !important;
+            text-align: center;
+        }
+        .workflow-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #4a5568;
+            margin-top: 8px;
+            margin-bottom: 24px;
+        }
+        .github-link {
+            background: #24292e;
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 8px;
             display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 14px;
-            color: #ffb347;
-            font-family: monospace;
+            text-decoration: none;
+            margin: 16px 0;
+            transition: background 0.2s;
         }
-        .note-box {
-            background: #1e2a2f;
-            border-left: 4px solid #f5a623;
+        .github-link:hover {
+            background: #0366d6;
+            transform: none;
+        }
+        /* 干净的高亮框：纯白底 + 浅灰边框，无背景色 */
+        .highlight-box {
+            background: #ffffff;
+            border-left: 4px solid #cbd5e0;
             padding: 16px 20px;
             border-radius: 12px;
             margin: 24px 0;
+            color: #1a2a3a;
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
-        .bug-scene {
-            background: #2d1f1f;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 24px 0;
-            border: 1px solid #4a2a2a;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
         }
-        .log-line {
-            font-family: monospace;
-            font-size: 13px;
-            background: #0f0f1a;
-            padding: 8px 12px;
+        th, td {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        th {
+            background: #f8fafc;
+        }
+        pre {
+            background: #f6f8fa;
+            padding: 12px;
             border-radius: 8px;
-            margin: 8px 0;
-            color: #9bcd6c;
+            overflow-x: auto;
+            font-size: 0.85rem;
         }
-        .badge {
-            display: inline-block;
-            background: #3b3b4f;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-right: 8px;
+        code {
+            font-family: 'SF Mono', Monaco, monospace;
         }
-        hr {
-            margin: 28px 0;
-            border: none;
-            height: 1px;
-            background: #2d2d3a;
-        }
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin: 32px 0 20px 0;
-            padding-left: 12px;
-            border-left: 4px solid #f5a623;
-            color: #e2e2e8;
+        :root {
+            --mermaid-font-family: 'Segoe UI', 'SF Mono', monospace;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                'background': 'transparent',
+                'primaryColor': '#e8f4f8',
+                'primaryBorderColor': '#2c7da0',
+                'primaryTextColor': '#1a2a3a',
+                'lineColor': '#5a6e7c',
+                'secondaryColor': '#f0f2f5',
+                'tertiaryColor': '#ffffff',
+                'clusterBkg': '#ffffff',
+                'clusterBorder': '#cbd5e0',
+                'fontSize': '14px',
+                'fontFamily': 'system-ui, -apple-system, sans-serif'
+            }
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -105,92 +147,191 @@
     <div class="main-grid">
         <main>
             <div class="post-card post-detail">
-                <span class="post-tag">#rlog</span>
-                <h1>我讨厌减脂期</h1>
-                <div class="post-meta">📅 2026-04-02 · 🕒 6分钟阅读</div>
+                <span class="post-tag"># Agent工作流</span>
+                <h1>从Vibe Coding到Agent工作流：40天没写代码，产出却超过去一年半</h1>
+                <div class="post-meta">📅 2026-05-19 · 🕒 8分钟阅读</div>
                 <div class="post-content">
+                    <p>很久没更新了。虽然也没人看，但是还是总结一下做了什么。</p>
                     
-                    <div class="rant-box">
-                        <div class="rant-text">
-                            <p>感觉这段时间应该也是人生中非常难忘的部分了<br>
-                            接了点单，第一次赚到了人生中第一个属于自己的1K<br>
-                            虽然是小单子积累的，但还是很兴奋</p>
+                    <p>开始使用agent并开发agent后，进化速度已经是指数级上升了。不论是学习能力，工程能力亦或者认知水平，都发生了质变。<strong>我已经40天没有手写过代码了</strong>，但是项目产出超过了前面一年半的总和。</p>
+                    
+                    <p>实际上，内容产出和我的自身代码水平没有关系。通过vibe coding，我需要做的是产出idea、提供token并训练agent，以及开发prompt和插件就行。例如Redis架构以及OA系统的框架流，并不是我学会了框架设计然后开发，而是AI来设计并开发，我在review和push的时候去学习和理解。</p>
+                    
+                    <p>由于自身做了快半年外包，又没机会进大厂，还是想去初创类小厂闯一闯的，尽管到现在拿到的都是黑奴offer。但凡今年是大三，已经拿下中厂了我说实话。</p>
+                    
+                    <p>今天这篇post还是讲一下关于这两天搓的一套<strong>agent工作链</strong>。</p>
+                    
+                    <h2>Agent工作流：核心不是Prompt，是链路规范</h2>
+                    
+                    <p>实际上，除去应用场景和prompt优化，agent本身最重要的就是<strong>插件的规范链路以及适配</strong>。例如，在链路失败回滚过程中，我们需要严格规范每处回滚的节点和边界条件。如果回滚错乱，会导致推理爆炸、边界报错甚至是安全风险。</p>
+                    
+                    <p>基于这个认知，我设计了一套通用的Agent工作流框架，并已经在 <code>ram-agent</code> 项目中实现（基于Matt Pocock的微技能架构）。下面是链路设计（分两阶段展示，避免单图过长）：</p>
+                    
+                    <div class="mermaid-wrapper">
+                        <div class="mermaid">
+flowchart LR
+    subgraph S1[安全与输入]
+        A[敏感词筛查] --> B[安全防护] --> C[上下文预加载]
+    end
+    subgraph S2[理解与规划]
+        C --> D[意图推理] --> E[需求分析] --> F[并行边界检查] --> G[任务规划]
+    end
+    style S1 fill:#f8fafc,stroke:#cbd5e0
+    style S2 fill:#f8fafc,stroke:#cbd5e0
+    style A fill:#e8f4f8,stroke:#2c7da0
+    style B fill:#e8f4f8,stroke:#2c7da0
+    style D fill:#fff3e0,stroke:#e6a017
+    style E fill:#fff3e0,stroke:#e6a017
+    style G fill:#fff3e0,stroke:#e6a017
                         </div>
                     </div>
-
-                    <div class="section-title">一、一千块，域名服务器续完费，token买一买，就剩13顿KFC了</div>
-                    <div class="rant-box">
-                        <div class="rant-text">
-                            <p>兴奋和自负过去后，我开始思考的就是我现在做的事有什么意义<br>
-                            三款框架，6个单子，和一款正在开发的全栈架构<br>
-                            我学前端，是为了我的作品能展示出去<br>
-                            开始写后端，是为了匹配实际应用开发，拉高项目含金量以及技术栈深度<br>
-                            去找实习，是为了学习开发经验和认识更厉害的前辈<br>
-                            忍耐这个学校，是为了HR在看见我的简历后不会认为我是个路边也狗<br>
-                            下周去CITE，为了理清未来需要我做什么，以及看看已经站在未来的前辈们是怎么做的</p>
+                    <div class="workflow-caption">📌 图1-上半：安全防护 → 上下文预加载 → 意图推理 → 任务规划</div>
+                    
+                    <div class="mermaid-wrapper">
+                        <div class="mermaid">
+flowchart LR
+    subgraph S3[执行与校验]
+        direction LR
+        H[具体工作流<br/>子技能链] --> I{成功?}
+        I -->|成功| M[结果校验]
+        I -->|失败| J[回滚测试/<br/>兜底路径]
+        J --> K{回滚成功?}
+        K -->|失败| L[异常降级/<br/>人工介入]
+        K -->|成功| M
+    end
+    subgraph S4[沉淀与闭环]
+        M --> N[输出review] --> O[反馈闭环/<br/>学习入口] --> P[上下文记录<br/>& 规则更新]
+        L --> P
+    end
+    style S3 fill:#f8fafc,stroke:#cbd5e0
+    style S4 fill:#f8fafc,stroke:#cbd5e0
+    style H fill:#d4edda,stroke:#28a745
+    style J fill:#f8d7da,stroke:#dc3545
+    style M fill:#d1ecf1,stroke:#17a2b8
+    style N fill:#d1ecf1,stroke:#17a2b8
+    style O fill:#e2d5f1,stroke:#8b5cf6
                         </div>
                     </div>
-
-                    <div class="section-title">二、计算机除了当外包的就是累死累活找到工作然后找外包的</div>
-                    <div class="rant-box">
-                        <div class="rant-text">
-                            <p>我又开始想，就这么下去，以后找不到工作就当个外包，养得起自己吗<br>
-                            尽管考研是个非常好的选择，但我总想着早点出去看看<br>
-                            我说了不止一次这个想法，但是我的家人的态度是：<br>
-                            本科学历找不到工作，不考研以后没出路 你为什么这么急着赚钱<br>
-                            至于那条我想走的路，我妈的原话是：<br>
-                            <strong>‘你没那个能力，你不配’</strong><br>
-                            所以我就意识到，“我草，这辈子来对了，这他妈一定拿的是主角的剧本“</p>
+                    <div class="workflow-caption">📌 图1-下半：具体工作流 → 回滚/兜底 → 校验 → 反馈闭环</div>
+                    
+                    <!-- 干净版高亮框：纯白底，浅灰左边框，无背景色块 -->
+                    <div class="highlight-box">
+                        <strong>🔁 关键设计：回滚与兜底</strong><br>
+                        链路失败回滚过程中，必须严格规范每处回滚的节点和边界条件。如果回滚错乱，会导致推理爆炸、边界报错甚至是安全风险。<br>
+                        这也是我在 ram-agent 的 common/ERROR-PROTOCOL.md 中重点解决的问题。
+                    </div>
+                    
+                    <h2>ram-agent：微技能架构的落地实践</h2>
+                    
+                    <p>基于上述工作流思想，我开源了 <strong>Ram-Agent</strong> 套件：<a href="https://github.com/RaM-bugourp/Ram_agents" target="_blank">https://github.com/RaM-bugourp/Ram_agents</a>。这是一个面向全栈开发的微技能Agent套件，核心理念是：<strong>一个技能 = 一个职责</strong>，每个子技能专注单一关注点，通过路由器串联组合。</p>
+                    
+                    <div class="mermaid-wrapper">
+                        <div class="mermaid">
+flowchart TB
+    Router["SKILL.md 路由器<br/>意图分类 → 派发"]
+    
+    subgraph Skills[子技能池]
+        direction LR
+        Triage["triage<br/>任务分类"]
+        Grill["grill<br/>需求对齐"]
+        Arch["architect<br/>架构设计"]
+        Diagnose["diagnose<br/>问题诊断"]
+        TDD["tdd<br/>测试驱动"]
+        Code["code<br/>编码实现"]
+    end
+    
+    Common["common/<br/>共享规范层"]
+    
+    Router --> Skills
+    Triage -.-> Common
+    Grill -.-> Common
+    Arch -.-> Common
+    Diagnose -.-> Common
+    TDD -.-> Common
+    Code -.-> Common
+    
+    style Router fill:#2c7da0,color:#fff,stroke:#1f5e7a
+    style Common fill:#6c757d,color:#fff,stroke:#495057
+    style Skills fill:#f8fafc,stroke:#cbd5e0
                         </div>
                     </div>
-
-                    <div class="section-title">三、19岁</div>
-                    <div class="rant-box">
-                        <div class="rant-text">
-                            <p>2026年4月2号，我现在是19岁<br>
-                            有好多想做的事，想制作一个频道，组建一个工作室，打造一个社区，接单赚好多好多钱，买好多好多token，买辆机车，租个自己的小屋，认识更多人<br>
-                            在父母指向的那条路里，我看见的是迷雾，终点似乎明亮但是索然无味<br>
-                            对于现在的我，我不想听爸妈的找个对象（当然了也是因为找不到），不想去被无用的课程搞得焦头烂额，更不想和一群不喜欢我的傻逼挤出个笑脸告诉全世界我是个没脾气的傻逼</p>
+                    <div class="workflow-caption">📌 图2：Ram-Agent 微技能架构 — 路由器 + 子技能池 + 共享规范层</div>
+                    
+                    <h3>预设技能链</h3>
+                    <table>
+                        <tr><th>工作流</th><th>执行链路</th></tr>
+                        <tr><td>完整功能开发</td><td>triage → grill → architect → tdd → code</td></tr>
+                        <tr><td>Bug 修复</td><td>triage → diagnose → code → tdd</td></tr>
+                        <tr><td>架构审查</td><td>grill → architect</td></tr>
+                        <tr><td>重构</td><td>triage → diagnose → architect → code</td></tr>
+                    </table>
+                    
+                    <h3>链路失败回滚协议</h3>
+                    <p>最新提交中，我专门添加了 <code>common/ERROR-PROTOCOL.md</code>，规范了跨技能的错误传递和回滚边界。</p>
+                    
+                    <div class="mermaid-wrapper">
+                        <div class="mermaid">
+flowchart TD
+    Error[子技能执行错误] --> Capture[捕获错误类型与上下文]
+    Capture --> Check{错误级别}
+    Check -->|可恢复| Retry[有限重试 ≤3次]
+    Retry --> RetrySuccess{成功?}
+    RetrySuccess -->|是| Resume[继续原链路]
+    RetrySuccess -->|否| Rollback
+    Check -->|不可恢复| Rollback[触发回滚]
+    Rollback --> Undo[执行补偿操作 状态还原]
+    Undo --> Boundary[回到上一个安全边界节点]
+    Boundary --> Fallback{兜底路径存在?}
+    Fallback -->|是| FallbackExec[执行兜底逻辑]
+    Fallback -->|否| Escalate[异常升级 → 人工介入]
+    style Error fill:#f8d7da,stroke:#dc3545,color:#721c24
+    style Rollback fill:#f8d7da,stroke:#dc3545,color:#721c24
+    style FallbackExec fill:#fff3e0,stroke:#e6a017,color:#856404
+    style Escalate fill:#e2e3e5,stroke:#6c757d,color:#383d41
                         </div>
                     </div>
+                    <div class="workflow-caption">📌 图3：链路失败回滚协议 — 保证Agent执行稳定性</div>
+                    
+                    <blockquote>
+                        <p>当时我搓这个Agent工作链时，踩过最大的坑就是回滚错乱。Agent推理到一半，因为一个边界条件没处理好，整个上下文崩了，然后模型开始幻觉补全，最后输出了一堆不可控的内容。所以后来我把<strong>回滚测试/兜底路径</strong>作为一等公民纳入框架。</p>
+                    </blockquote>
+                    
+                    <h2>补充：工作流还缺什么？</h2>
+                    
+                    <p>在社区讨论中，我也收到了对这套框架的补充建议。除了当前已实现的节点外，还应该考虑：</p>
+                    <ul>
+                        <li><strong>结果校验 / 断言环节</strong>：在「具体工作流」之后增加任务完成度检查</li>
+                        <li><strong>异常降级 / 兜底路径</strong>：与「回滚测试」并列，提供默认安全路径</li>
+                        <li><strong>反馈闭环 / 学习入口</strong>：输出review之后增加规则更新节点</li>
+                    </ul>
+                    
+                    <h2>部署与使用</h2>
+                    <p>将 <code>ram-agent/</code> 目录放置到 WorkBuddy 技能目录下：</p>
+                    <pre><code># 用户级安装（所有项目可用）
+~/.workbuddy/skills/ram-agent/
 
-                    <div class="section-title">四、我知道很扯但是傻逼AI把这段话单独拿出来分了一段</div>
-                    <div class="note-box">
-                        <p>如果我做的事只是为了下半辈子安安稳稳苟且数十年，那我说白了<br>
-                        --OK了家人们，全体目光向我看齐，我宣布个事儿！看我，看我！我是个傻逼！--</p>
+# 项目级安装（仅当前项目）
+{project}/.workbuddy/skills/ram-agent/</code></pre>
+                    <p>触发方式：<code>@ram</code> 或 <code>ram</code> + 任务描述。也可直接触发子技能：<code>@ram-diagnose</code>、<code>@ram-architect</code>。</p>
+                    
+                    <a href="https://github.com/RaM-bugourp/Ram_agents" target="_blank" class="github-link">🔗 查看 GitHub 仓库：Ram_agents →</a>
+                    
+                    <h2>总结</h2>
+                    <p>Agent工作流的核心不在于单个Prompt写得多么精美，而在于<strong>链路的规范性和回滚机制的完备性</strong>。当你把流程拆解成可插拔、可回滚、可观测的节点序列，AI的产出稳定性和可控性会上一个台阶。</p>
+                    
+                    <p>当然，今天我们只是讨论agent的工作流开发，LLM的训练则完全不一样——这一点我们下次聊。</p>
+                    
+                    <div style="background: #f8fafc; padding: 16px 20px; border-radius: 12px; margin: 28px 0 16px; border: 1px solid #e2e8f0;">
+                        <p style="margin: 0 0 6px 0;"><strong>📬 找到我 / 加入交流</strong></p>
+                        <p style="margin: 0;">
+                        🌐 博客：<a href="../index.html">RaM's Blog</a><br>
+                        💬 QQ群：扫描右侧二维码进群<br>
+                        📧 合作/加入管理员：QQ 1963561552（算法方向已有负责人）<br>
+                        🔗 GitHub：<a href="https://github.com/RaM-bugourp" target="_blank">RaM-bugourp</a>
+                        </p>
                     </div>
-
-                    <div class="section-title">五、我真得V你五十了</div>
-                    <div class="rant-box">
-                        <div class="rant-text">
-                            <p>你会想，这个人阅历太低了，这个人太理想化了，这个人没有长远的眼光<br>
-                            但是这个世界就是这样的，一千个人心中有一千种傻逼，<br>
-                            妈妈指着我的鼻子说：<br>
-                            <strong>”不趁着大学考研这辈子都不好走“</strong><br>
-                            我回到房间对着我的笔记本说：<br>
-                            <strong>”我草，甲方这么多要求呢“</strong></p>
-                        </div>
-                    </div>
-
-                    <div class="section-title">六、这个世界有太多傻逼的甲方了</div>
-                    <div class="bug-scene">
-                        <div class="log-line"><span class="badge">甲方</span> 跑路的</div>
-                        <div class="log-line"><span class="badge">甲方</span> 改十几版方案的然后来一句原来挺好的</div>
-                        <div class="log-line"><span class="badge">甲方</span> 临时起意加模块的</div>
-                        <div class="log-line"><span class="badge">UI</span> UI设计™的也要叫叫叫的</div>
-                        <div class="log-line"><span class="badge">面试</span> 天天他妈的面试造航母上岗拧螺丝的</div>
-                        <div class="log-line"><span class="badge">凌晨</span> b事儿比预算还多的</div>
-                    </div>
-
-                    <div class="section-title">七、下周CITE我要出去玩了哈哈哈哈哈哈</div>
-                    <div class="rant-box">
-                        <div class="rant-text">
-                            <p><strong>这个世界需要少年的意气风发</strong></p>
-                        </div>
-                    </div>
-
-                    <hr>
-                    <p style="color: #D9B48B; margin-top: 20px;">—— RaM，写于 2026年4月2日</p>
+                    
+                    <p style="margin-top: 28px;">—— RaM</p>
                 </div>
                 <div class="post-footer" style="margin-top: 24px;">
                     <a href="../index.html" class="back-link">← 返回首页</a>
@@ -204,6 +345,10 @@
                 <div class="profile-name">RaM</div>
                 <div class="profile-bio">全栈开发 · Agent人柱力</div>
                 <div class="profile-bio">热爱代码，喜欢折腾</div>
+                <div class="qr-section">
+                    <img class="qrcode-img" src="../images/team.jpg" alt="QQ群分享二维码 - 欢迎加入BuGroup">
+                    <div class="qr-caption">📱 扫码加入 BuGroup 交流群</div>
+                </div>
             </div>
         </aside>
     </div>
