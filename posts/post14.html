@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Agent集群工程：从RAFT隐喻到全栈开发协作模式 · RaM's Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .figure {
+            margin: 1.5em 0;
+            text-align: center;
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(72, 80, 96, 0.3);
+        }
+        .figure-caption {
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            margin-top: 10px;
+        }
+        .highlight-box {
+            background: rgba(139, 148, 158, 0.08);
+            border-left: 4px solid #D9B48B;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+            line-height: 1.7;
+        }
+        .check-list {
+            background: rgba(22, 27, 34, 0.5);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            border: 1px solid rgba(72, 80, 96, 0.3);
+        }
+        .check-list li {
+            margin-bottom: 12px;
+        }
+        .check-list li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">RaM's Blog</div>
+            <div class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="../archive.html">归档</a>
+                <a href="../friends.html">友链</a>
+                <a href="../about.html">关于</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main>
+            <div class="post-card post-detail">
+                <span class="post-tag"># Agent集群</span>
+                <h1>Agent集群工程：从RAFT隐喻到全栈开发协作模式</h1>
+                <div class="post-meta">📅 2026-07-22 · 🕒 10分钟阅读</div>
+                <div class="post-content">
+                    <p>关于 Agent 集群工程，实际上它是一套在短时间内搭出来的、相对规范完整的 Agent 协作模式。核心目标不是让单个 Agent 多强，而是让多个 Agent 能稳定地一起完成一件复杂的事。</p>
+
+                    <h2>设计理念：用 RAFT 做调度隐喻</h2>
+                    <p>我的开发理念主要参考了 RAFT 的<strong>中台 Agent 调度</strong>思想：一个主控 Agent 负责整体协调，各个子 Agent 相互隔离，各自承担明确的职责。中台不替子 Agent 干活，只负责<strong>分发、仲裁、回滚、容灾</strong>。</p>
+
+                    <div class="highlight-box">
+                        <strong>核心原则</strong><br>
+                        各 Agent 相互隔离，搭建规范合理的日志系统、信息传输规范，以及足够详细的容灾方案。对于开发性质的 Agent，最重要的是规范化、可回滚、安全性、系统稳定性（资源占用、进程冲突等）。
+                    </div>
+
+                    <h2>全栈开发集群的构成</h2>
+                    <p>我这里搭建的是一个<strong>全栈开发集群</strong>，包含中台和多个开发子 Agent：前端、后端、架构、测试、环境。每个 Agent 有明确的能力边界和输入输出契约，通过中台统一调度。</p>
+
+                    <div class="figure">
+                        <img src="../images/agent-cluster-chinese.png" alt="Agent注册、提案分发与协作循环">
+                        <div class="figure-caption">📌 图1：Agent 注册与心跳维持、提案分发与门禁体系、Agent 间协作循环</div>
+                    </div>
+
+                    <p>上图是整个集群的运行骨架：子 Agent 注册并维持心跳，人类/架构师输入需求和切片后，先经过 gatekeeper 的硬约束门禁，再由中台按能力路由分发。执行过程中有冲突检测、报告生成、验收门禁，失败则进入重试/重新路由/人工干预。</p>
+
+                    <h2>架构分层与角色矩阵</h2>
+                    <p>为了让集群不至于变成一锅粥，我把架构拆成了三层：核心底座层、技能/插件层、项目适配层。底座负责协议、状态、门禁、鉴权、日志、存储、执行、编排、恢复等通用能力；上层才接入具体业务（前端、后端、测试、采集等）。</p>
+
+                    <div class="figure">
+                        <img src="../images/cluster-hierarchy-chinese.png" alt="整体架构分层、模型资源层级与Agent角色矩阵">
+                        <div class="figure-caption">📌 图2：整体架构分层、模型资源层级（modelpool）、Agent 角色矩阵</div>
+                    </div>
+
+                    <p>模型资源层级（modelpool）也值得单独说一下：不是每个 Agent 都配最猛的模型，而是按任务优先级分级——标准开发自动批准、premium/高级任务自动批 P0/P1、ultra 仅 P0 可申请并告警。这样既省 token，也避免资源争抢。</p>
+
+                    <h2>日志、缓存与回滚</h2>
+                    <p>多 Agent 一起跑，日志是救命稻草。我的设计是：日志只记录事实、决策、验证、下一步，禁止空泛总结；写入时带 sha256 指纹校验，按日期分文件存储，支持分级目录。缓存流则需要主 Agent 审批，单流上限 1000 条，6 条全满时触发保护。</p>
+
+                    <div class="figure">
+                        <img src="../images/log-system-chinese.png" alt="日志写入流水线、缓存流生命周期与检查点回滚">
+                        <div class="figure-caption">📌 图3：日志写入流水线、6 条缓存流生命周期、检查点与回滚机制</div>
+                    </div>
+
+                    <p>检查点（checkpoint）和回滚（rollback）是安全底线。接口契约实现完成后，checkpoint manager 强制创建 .ckpt 文件，磁盘 + JSONL 双写。一旦后续失败，按 rollback 标记回到上一个安全边界，而不是让 Agent 在错误状态上继续 hallucinate。</p>
+
+                    <h2>动态性：新 Agent 怎么接入已有协作关系</h2>
+                    <p>不论前期设计多详细，实际工作里一定会出现预料外的 Bug 或需求扩展。所以系统规范的同时必须保证灵活。</p>
+                    <p>最典型的场景：一个已经完善的协作关系里，突然加入一个新的 Agent。它的业务功能有些独有、有些和其他 Agent 重叠，能力差异和资源需求也不同。怎么在短时间内适配进当前关系、确保稳定工作？</p>
+                    <p>这需要中台具备<strong>能力发现与重新路由</strong>的能力：新 Agent 注册时声明 capabilities 和约束，中台重新计算路由表，对冲突能力做优先级仲裁，对新增能力开放新的任务切片入口，并在前几次执行时启用更严格的门禁和观测。</p>
+
+                    <h2>对 AI 祛魅：非理想场景清单</h2>
+                    <p>我们习惯了 AI 跟我们说当前项目有多好、多独特、多有竞争性，即使自查也是不痛不痒的小问题。但如果你是做代码开发，可能没问题——史山能跑就行，后续大不了继续堆史。</p>
+                    <p>然而在 AI Agent 开发里，我们的角色是<strong>架构设计、工作流设计、协作关系设计</strong>，是近乎抽象但要保持逻辑线路的工程师。所以我们必须不断考虑最坏情况，抛开所有理论条件。</p>
+
+                    <div class="check-list">
+                        <ul>
+                            <li>单步 LLM 调用失败、JSON 解析失败、文件写入失败、shell 失败、测试失败，分别进入什么状态？</li>
+                            <li>DAG 是否允许并行分支？并行分支争抢同一文件时如何处理？</li>
+                            <li>数据库迁移、远程 API 调用、部署动作是否支持回滚？不支持时如何阻止自动执行？</li>
+                            <li>Agent 心跳丢失后，是 kill 还是降级？未完成的任务如何移交？</li>
+                            <li>模型池耗尽时，是排队、降级到单例 LLM，还是拒绝新提案？</li>
+                        </ul>
+                    </div>
+
+                    <p>这样的问题一天能摸出来几十个。有些重要，有些不重要，但都是基于实际场景推理出来的非理想场景。<strong>这并不是八股文</strong>，因为不上手搭建开发，你很难想到会出现什么问题。所以 AI Agent 开发的第一件事，是对 AI 祛魅。</p>
+
+                    <h2>后续预告</h2>
+                    <p>后面我会拆开这套架构，结合实际设计讲解开发思路以及需要注意的问题：从 gatekeeper 的硬约束设计，到 checkpoint/rollback 的实现细节，再到新 Agent 动态接入时的路由重算。希望把这套骨架真正变成能跑、能扩展、能容灾的系统。</p>
+
+                    <p>—— RaM</p>
+                </div>
+                <div class="post-footer" style="margin-top: 24px;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img class="avatar-img" src="../images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
