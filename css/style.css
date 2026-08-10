@@ -631,3 +631,183 @@ body::before {
         margin-left: 1.2em;
     }
 }
+
+/* ========== 固定导航栏（所有页面） ========== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 14px 0;
+    margin-bottom: 0;
+    background: rgba(13, 17, 23, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* 给固定导航栏留出空间，仅正文区域随页面滚动 */
+.container {
+    padding-top: 92px;
+}
+
+.sidebar {
+    top: 88px;
+    align-self: start;
+}
+
+/* 标题锚点跳转时避开固定导航栏 */
+.post-content h2,
+.post-content h3 {
+    scroll-margin-top: 96px;
+}
+
+/* ========== 文章目录 TOC（React Bits LineSidebar） ========== */
+
+.toc-card {
+    background: rgba(22, 27, 34, 0.7);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(72, 80, 96, 0.3);
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 148, 158, 0.4) transparent;
+}
+
+.toc-card .card-title {
+    margin-bottom: 4px;
+}
+
+.toc-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.toc-card::-webkit-scrollbar-thumb {
+    background: rgba(139, 148, 158, 0.35);
+    border-radius: 3px;
+}
+
+.toc-card::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* LineSidebar 组件样式，来自 React Bits LineSidebar-JS-CSS */
+.line-sidebar {
+    --accent-color: #a855f7;
+    --text-color: #c4c4c4;
+    --marker-color: #6c6c6c;
+    --marker-length: 60px;
+    --marker-gap: 0px;
+    --tick-scale: 0.5;
+    --max-shift: 30px;
+    --item-gap: 20px;
+    --font-size: 1.1rem;
+    --smoothing: 100ms;
+
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.line-sidebar--markers {
+    padding-left: calc(var(--marker-length) + var(--marker-gap));
+}
+
+.line-sidebar__list {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--item-gap);
+}
+
+/* --effect (0..1) is driven per item by a rAF lerp in JS, so every derived
+   property below reads the same continuously-animating value and stays in
+   step, with no CSS transitions to stagger. */
+.line-sidebar__item {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Widen the pointer target so items react a touch before the cursor arrives */
+.line-sidebar__item::before {
+    content: '';
+    position: absolute;
+    inset: -6px -48px;
+}
+
+.line-sidebar__label {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    font-size: var(--font-size);
+    line-height: 1.2;
+    color: color-mix(in srgb, var(--accent-color) calc(var(--effect, 0) * 100%), var(--text-color));
+    transform: translateX(calc(var(--effect, 0) * var(--max-shift)));
+}
+
+.line-sidebar__index {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    margin-right: 0.6rem;
+    font-size: 0.85em;
+    opacity: calc(0.55 + var(--effect, 0) * 0.45);
+}
+
+.line-sidebar__marker {
+    position: absolute;
+    top: 50%;
+    left: calc(-1 * var(--marker-length) - var(--marker-gap));
+    height: 1px;
+    width: var(--marker-length);
+    background-color: color-mix(in srgb, var(--accent-color) calc(var(--effect, 0) * 100%), var(--marker-color));
+    transform-origin: left center;
+    transform: translateY(-50%) scaleX(calc(0.7 + var(--effect, 0) * 0.5));
+}
+
+/* Short static tick centered in the gap between two menu items */
+.line-sidebar--markers .line-sidebar__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(100% + var(--item-gap) / 2);
+    left: calc(-1 * var(--marker-length) - var(--marker-gap));
+    height: 1px;
+    width: calc(var(--marker-length) * var(--tick-scale));
+    background-color: var(--marker-color);
+    opacity: 0.5;
+    transform: translateY(-50%);
+}
+
+/* When enabled, the in-between ticks grow with cursor proximity too */
+.line-sidebar--scale-tick .line-sidebar__item:not(:last-child)::after {
+    transform-origin: left center;
+    transform: translateY(-50%) scaleX(calc(0.7 + var(--effect, 0) * 0.6));
+}
+
+/* 三级标题（h3）在目录中缩进 */
+.line-sidebar__item--sub .line-sidebar__label {
+    padding-left: 26px;
+}
+
+/* 当前阅读到的标题在目录中加粗强调 */
+.line-sidebar__item[aria-current="true"] .line-sidebar__text {
+    font-weight: 600;
+}
+
+@media (max-width: 800px) {
+    .container {
+        padding-top: 120px;
+    }
+    .toc-card {
+        max-height: none;
+    }
+}
