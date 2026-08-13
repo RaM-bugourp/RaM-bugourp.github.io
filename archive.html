@@ -23,7 +23,9 @@
     </nav>
 
     <div class="main-grid">
-        <main id="archiveContent"></main>
+        <main id="archiveContent">
+            <!-- 归档列表由 js/site.js 动态渲染（按年/月分组） -->
+        </main>
 
         <aside class="sidebar">
             <div class="profile-card">
@@ -36,59 +38,17 @@
             <div class="stats-card">
                 <div class="card-title">📊 站点统计</div>
                 <ul class="stats-list">
-                    <li><span>文章总数</span><span id="postCount">12</span></li>
-                    <li><span>标签数量</span><span>6</span></li>
+                    <!-- 由 js/site.js 动态计算注入 -->
                 </ul>
             </div>
         </aside>
     </div>
+
+    <footer class="site-footer"></footer>
 </div>
 
-<script>
-    // 归档页独立脚本（不引用 main.js，避免冲突）
-    const articleList = [
-        { id: "post14", title: "Agent集群工程：从RAFT隐喻到全栈开发协作模式", date: "2026-07-22" },
-        { id: "post13", title: "从Vibe Coding到Agent工作流：40天没写代码，产出却超过去一年半", date: "2026-05-19" },
-        { id: "post12", title: "我花了两周，给 Django 做了一款“零侵入”的缓存外挂", date: "2026-04-30" },
-        { id: "post9", title: "Agent工作链搭建", date: "2026-04-02" },
-        { id: "post8", title: "日志是谁，为什么要打他", date: "2026-04-01" },
-        { id: "post7", title: "哈希？数据泄露的最后一道防线", date: "2026-03-30" },
-        { id: "post6", title: "关于 BuGroup ，关于我们", date: "2026-03-29" },
-        { id: "post5", title: "我想当个数字游民", date: "2026-03-26" },
-        { id: "post4", title: "你想活出怎么样的人生", date: "2026-03-25" },
-        { id: "post3", title: "VibeCoding · 个人开发者的AI时代生存指南", date: "2026-03-25" },
-        { id: "post2", title: "如何成为一名ACMer", date: "2026-03-23" },
-        { id: "post1", title: "Django Vue AdminX 框架开发实战", date: "2026-03-22" }
-    ];
-
-    function renderArchivePage() {
-        const grouped = {};
-        articleList.forEach(article => {
-            const year = article.date.slice(0, 4);
-            const month = article.date.slice(5, 7);
-            if (!grouped[year]) grouped[year] = {};
-            if (!grouped[year][month]) grouped[year][month] = [];
-            grouped[year][month].push(article);
-        });
-        
-        let html = '<div class="archive-list">';
-        for (const year of Object.keys(grouped).sort().reverse()) {
-            html += `<div class="archive-year">${year}年</div>`;
-            for (const month of Object.keys(grouped[year]).sort().reverse()) {
-                html += `<div class="archive-month">
-                    <div class="archive-month-title">${month}月</div>
-                    <ul class="archive-items">`;
-                for (const article of grouped[year][month]) {
-                    html += `<li><a href="posts/${article.id}.html">${article.title}</a><span class="archive-date">${article.date}</span></li>`;
-                }
-                html += `</ul></div>`;
-            }
-        }
-        html += '</div>';
-        document.getElementById('archiveContent').innerHTML = html;
-    }
-    
-    renderArchivePage();
-</script>
+<script src="js/posts.js"></script>
+<script src="js/data/friends.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>

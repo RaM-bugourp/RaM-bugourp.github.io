@@ -29,9 +29,7 @@
                 <h1>👤 关于我</h1>
                 <p>个人开发者，包含python全栈，Agent开发等</p>
                 <p>如果你想加入我们创立的组织 BuGroup ，企鹅群：777101401</p>
-                
 
-                
                 <h2>技术栈</h2>
                 <ul>
                     <li><strong>语言</strong>：Py / JS / PHP / CPP / Prompt</li>
@@ -46,14 +44,15 @@
                     <li><strong>#DataAgent</strong>：支持db-gpt代部署，包含RAG，文本分析，知识库建造等功能，服务包含skill筛选安装，保证满足客户需求</li>
                     <li><strong>定制项目</strong>：Agent协作开发，prompt微调，垂直领域需求都可以定制项目，价格实惠，给钱就做</li>
                 </ul>
-                
+
                 <h2>联系方式</h2>
-                
                 <p>📧 邮箱：1963561552@qq.com</p>
                 <p>🐙 GitHub：<a href="https://github.com/RaM-bugourp" target="_blank">github.com/RaM-bugourp</a></p>
                 <p>🫰 有Agent调优＆开发需求＆购买token + vx : l_m_RaM （这里是小写L）</p>
+
                 <h2>关于本站</h2>
                 <p>本站使用纯 HTML/CSS/JS 构建，主题深色，代码开源。</p>
+                <p style="font-size: 13px; color: #9CA3AF;">技术细节：文章元信息由 <code>tools/build_posts.py</code> 从 <code>posts/*.html</code> 自动扫描生成（单一真相源），所有页面统计动态计算，新增文章无需改动任何页面。</p>
             </div>
         </main>
 
@@ -68,14 +67,17 @@
             <div class="stats-card">
                 <div class="card-title">📊 站点统计</div>
                 <ul class="stats-list">
-                    <li><span>文章总数</span><span>3</span></li>
-                    <li><span>标签数量</span><span>6</span></li>
+                    <!-- 由 js/site.js 动态计算注入 -->
                 </ul>
             </div>
         </aside>
     </div>
+
+    <footer class="site-footer"></footer>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/posts.js"></script>
+<script src="js/data/friends.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>

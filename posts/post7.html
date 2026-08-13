@@ -87,7 +87,7 @@
             <div class="post-card post-detail">
                 <span class="post-tag"># 后端安全</span>
                 <h1>哈希？数据泄露的最后一道防线？</h1>
-                <div class="post-meta">📅 2026-03-31 · 🕒 8分钟阅读</div>
+                <div class="post-meta" id="postMeta">📅 2026-03-31 · 🕒 8分钟阅读</div>
                 <div class="post-content">
                     
                     <h2>一、要对甲方负责哦 魂淡</h2>
@@ -191,11 +191,20 @@ def new_hash_password(password):
                 <div class="profile-bio">全栈开发 · Agent人柱力</div>
                 <div class="profile-bio">热爱代码，喜欢折腾</div>
             </div>
+            <div class="stats-card">
+                <div class="card-title">📊 站点统计</div>
+                <ul class="stats-list">
+                    <!-- 由 js/site.js 动态计算注入 -->
+                </ul>
+            </div>
+
         </aside>
     </div>
 </div>
 
-<script src="../js/main.js"></script>
+<script src="../js/posts.js"></script>
+<script src="../js/data/friends.js"></script>
+<script src="../js/site.js"></script>
 <script src="../js/toc.js"></script>
 </body>
 </html>

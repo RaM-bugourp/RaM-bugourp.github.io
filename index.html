@@ -29,7 +29,7 @@
     <div class="main-grid">
         <main>
             <div id="homePage">
-                <!-- 文章列表会通过 JS 动态渲染 -->
+                <!-- 文章列表由 js/site.js 动态渲染（数据源 js/posts.js） -->
             </div>
         </main>
 
@@ -44,64 +44,24 @@
             <div class="stats-card">
                 <div class="card-title">📊 站点统计</div>
                 <ul class="stats-list">
-                    <li><span>文章总数</span><span>12</span></li>
-
-                    <li><span>友情链接</span><span id="friendCount">2</span></li>
+                    <!-- 由 js/site.js 动态计算注入 -->
                 </ul>
             </div>
 
             <div class="stats-card">
                 <div class="card-title">🏷️ 热门标签</div>
                 <div class="tag-cloud">
-                    <span class="tag">#Django</span>
-                    <span class="tag">#Vue</span>
-                    <span class="tag">#Python</span>
-                    <span class="tag">#AI</span>
+                    <!-- 由 js/site.js 动态生成（按使用频率） -->
                 </div>
             </div>
         </aside>
     </div>
+
+    <footer class="site-footer"></footer>
 </div>
 
-<script src="js/main.js"></script>
-<script>
-    function renderHomePage() {
-        const container = document.getElementById('homePage');
-        if (!container) return;
-        
-        const articleList = [
-            { id: "post14", title: "Agent集群工程：从RAFT隐喻到全栈开发协作模式", date: "2026-07-22", tag: "Agent集群", excerpt: "关于 Agent 集群工程，实际上它是一套在短时间内搭出来的、相对规范完整的 Agent 协作模式。", tags: "#Agent集群 #RAFT #协作模式" },
-            { id: "post13", title: "从Vibe Coding到Agent工作流：40天没写代码，产出却超过去一年半", date: "2026-05-19", tag: "Agent工作流", excerpt: "很久没更新了。虽然也没人看，但是还是总结一下做了什么。", tags: "#Agent #VibeCoding" },
-            { id: "post12", title: "我花了两周，给 Django 做了一款“零侵入”的缓存外挂", date: "2026-04-30", tag: "开源项目", excerpt: "Redis 这个词，我听过很久了。但一直觉得“那是大厂才用的东西”。", tags: "#Redis #Django #缓存" },
-            { id: "post9", title: "Agent工作链搭建", date: "2026-04-02", tag: "Agent", excerpt: "你的第一套Agent工作流", tags: "#rlog" },
-            { id: "post8", title: "日志是谁，为什么要打他", date: "2026-04-01", tag: "backend", excerpt: "我一进来就看见常威在打日志", tags: "#log" },
-            { id: "post7", title: "哈希？数据泄露的最后一道防线", date: "2026-03-30", tag: "backend", excerpt: "盐是啥？哈希又是啥", tags: "#salt" },
-            { id: "post6", title: "关于 BuGroup ，关于我们", date: "2026-03-29", tag: "BuGroup", excerpt: "BuGroup 是由我和 Witherwithwinter 创办的独立组织。", tags: "#组织" },
-            { id: "post5", title: "我想当个数字游民", date: "2026-03-26", tag: "个人开发", excerpt: "你准备什么时候开始呢？", tags: "#全栈 " },
-            { id: "post4", title: "你想活出怎么样的人生", date: "2026-03-25", tag: ":)", excerpt: "每个人都会死的，所以来看电视吧", tags: "#o.O " },
-            { id: "post3", title: "VibeCoding · 个人开发者的AI时代生存指南", date: "2026-03-25", tag: "AI", excerpt: "VibeCoding的本质：效率与门槛的革命。", tags: "#AI #效率 #工具" },
-            { id: "post2", title: "如何成为一名ACMer", date: "2026-03-23", tag: "算法", excerpt: "计算机专业必吃榜？如何从零开始打铁生涯", tags: "#ACM #赛事 #社区" },
-            { id: "post1", title: "Django Vue AdminX 框架开发实战", date: "2026-03-22", tag: "Django", excerpt: "一套完整的企业级后台管理系统框架，基于 Django 5.2 和 Vue 3 开发，包含 RBAC 权限控制、代码生成器、操作日志等核心功能。", tags: "#Python #Django #Vue" }
-        ];
-        
-        container.innerHTML = articleList.map(article => `
-            <div class="post-card">
-                <span class="post-tag"># ${article.tag}</span>
-                <h2 class="post-title"><a href="posts/${article.id}.html">${article.title}</a></h2>
-                <div class="post-meta">📅 ${article.date} · 🕒 约 5分钟阅读</div>
-                <div class="post-excerpt">${article.excerpt}</div>
-                <div class="post-footer">
-                    <span>🏷️ ${article.tags}</span>
-                    <a href="posts/${article.id}.html">阅读全文 →</a>
-                </div>
-            </div>
-        `).join('');
-        
-        // document.getElementById('postCount').innerText = articleList.length;
-        document.getElementById('friendCount').innerText = 2;
-    }
-    
-    renderHomePage();
-</script>
+<script src="js/posts.js"></script>
+<script src="js/data/friends.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>

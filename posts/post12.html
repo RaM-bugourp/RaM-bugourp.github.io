@@ -54,7 +54,7 @@
             <div class="post-card post-detail">
                 <span class="post-tag"># 开源项目</span>
                 <h1>我花了两周，给 Django 做了一款“零侵入”的缓存外挂</h1>
-                <div class="post-meta">📅 2026-04-30 · 🕒 7分钟阅读</div>
+                <div class="post-meta" id="postMeta">📅 2026-04-30 · 🕒 7分钟阅读</div>
                 <div class="post-content">
                     
                     <p>Redis 这个词，我听过很久了。但一直觉得“那是大厂才用的东西”。</p>
@@ -160,11 +160,20 @@
                 <div class="profile-bio">全栈开发 · Agent人柱力</div>
                 <div class="profile-bio">热爱代码，喜欢折腾</div>
             </div>
+            <div class="stats-card">
+                <div class="card-title">📊 站点统计</div>
+                <ul class="stats-list">
+                    <!-- 由 js/site.js 动态计算注入 -->
+                </ul>
+            </div>
+
         </aside>
     </div>
 </div>
 
-<script src="../js/main.js"></script>
+<script src="../js/posts.js"></script>
+<script src="../js/data/friends.js"></script>
+<script src="../js/site.js"></script>
 <script src="../js/toc.js"></script>
 </body>
 </html>

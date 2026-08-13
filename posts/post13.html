@@ -149,7 +149,7 @@
             <div class="post-card post-detail">
                 <span class="post-tag"># Agent工作流</span>
                 <h1>从Vibe Coding到Agent工作流：40天没写代码，产出却超过去一年半</h1>
-                <div class="post-meta">📅 2026-05-19 · 🕒 8分钟阅读</div>
+                <div class="post-meta" id="postMeta">📅 2026-05-19 · 🕒 8分钟阅读</div>
                 <div class="post-content">
                     <p>很久没更新了。虽然也没人看，但是还是总结一下做了什么。</p>
                     
@@ -349,12 +349,21 @@ flowchart TD
                     <img class="qrcode-img" src="../images/team.jpg" alt="QQ群分享二维码 - 欢迎加入BuGroup">
                     <div class="qr-caption">📱 扫码加入 BuGroup 交流群</div>
                 </div>
+            <div class="stats-card">
+                <div class="card-title">📊 站点统计</div>
+                <ul class="stats-list">
+                    <!-- 由 js/site.js 动态计算注入 -->
+                </ul>
+            </div>
+
             </div>
         </aside>
     </div>
 </div>
 
-<script src="../js/main.js"></script>
+<script src="../js/posts.js"></script>
+<script src="../js/data/friends.js"></script>
+<script src="../js/site.js"></script>
 <script src="../js/toc.js"></script>
 </body>
 </html>

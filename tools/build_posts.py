@@ -1,0 +1,191 @@
+# -*- coding: utf-8 -*-
+"""
+build_posts.py — ram-blog 数据管道（单一真相源）
+=================================================
+扫描 posts/*.html，提取元信息（h1/日期/标签/摘要/字数/阅读时长），
+生成 js/posts.js（供所有页面运行时使用），并输出校验报告。
+
+用法:
+    py tools/build_posts.py
+
+新增文章后必须重跑本脚本，所有页面统计/列表/标签云会自动更新。
+"""
+import re
+import glob
+import io
+import math
+import os
+import sys
+from collections import Counter
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+POSTS_DIR = os.path.join(ROOT, "posts")
+OUT_JS = os.path.join(ROOT, "js", "posts.js")
+REPORT = os.path.join(ROOT, "_build_report.txt")
+
+CJK_RE = re.compile(r"[\u4e00-\u9fff]")
+WORD_RE = re.compile(r"[A-Za-z0-9]+")
+TAG_RE = re.compile(r"<[^>]+>")
+WS_RE = re.compile(r"\s+")
+
+SITE_SUFFIX = "RaM's Blog"
+
+
+def strip_html(s: str) -> str:
+    s = TAG_RE.sub(" ", s)
+    s = WS_RE.sub(" ", s)
+    return s.strip()
+
+
+def extract(c: str, pattern: str, flags=re.S) -> str:
+    m = re.search(pattern, c, flags)
+    return m.group(1).strip() if m else ""
+
+
+def compute_read_minutes(text: str) -> int:
+    cjk = len(CJK_RE.findall(text))
+    latin = len(WORD_RE.findall(text))
+    minutes = math.ceil(cjk / 350 + latin / 220)
+    return max(1, minutes)
+
+
+def excerpt_of(content: str) -> str:
+    m = re.search(r"<p>(.*?)</p>", content, re.S)
+    if not m:
+        return ""
+    txt = strip_html(m.group(1))
+    if len(txt) > 120:
+        txt = txt[:120].rstrip() + "…"
+    return txt
+
+
+def main():
+    files = sorted(glob.glob(os.path.join(POSTS_DIR, "*.html")))
+    posts = []
+    warnings = []
+
+    for f in files:
+        c = open(f, encoding="utf-8").read()
+        pid = os.path.splitext(os.path.basename(f))[0]
+
+        # 是否是标准文章页（具备文章结构）
+        is_post = ("post-meta" in c) and ("post-content" in c)
+        if not is_post:
+            title = extract(c, r"<title>(.*?)</title>")
+            posts.append({
+                "id": pid, "title": title or pid, "date": "", "tag": "",
+                "tags": [], "excerpt": "", "words": 0, "readMinutes": 0,
+                "headings": 0, "type": "page",
+                "duplicateOf": None, "path": f,
+            })
+            continue
+
+        h1 = strip_html(extract(c, r"<h1>(.*?)</h1>"))
+        title_tag = extract(c, r"<title>(.*?)</title>")
+        title_tag = re.sub(r"\s*·\s*" + re.escape(SITE_SUFFIX) + r"\s*$", "", title_tag)
+        title = h1 or title_tag or pid
+
+        date = extract(c, r"(\d{4}-\d{2}-\d{2})")
+        static_minutes = extract(c, r"(\d+)\s*分钟阅读")
+        tag = extract(c, r'post-tag[^>]*>\s*#?\s*([^<]+)</span>').strip("# ").strip()
+        # 额外标签：文章内 hashtag（如 #A #B）
+        hashtags = re.findall(r"#([\w\u4e00-\u9fff.\-]+)", extract(c, r'<div class="post-footer">(.*?)</div>', re.S))
+        tags = [tag] if tag else []
+        for h in hashtags:
+            if h and h not in tags:
+                tags.append(h)
+
+        content = extract(c, r'<div class="post-content">(.*?)</div>\s*<div class="post-footer"', re.S) \
+            or extract(c, r'<div class="post-content">(.*?)</div>', re.S)
+        text = strip_html(content)
+        words = len(CJK_RE.findall(text)) + len(WORD_RE.findall(text))
+        read_minutes = compute_read_minutes(text)
+        headings = len(re.findall(r"<h[23][^>]*>", content))
+        excerpt = excerpt_of(content)
+
+        if not date:
+            warnings.append(f"[{pid}] 缺少日期 → 已排除出文章统计（type=page）")
+            ptype = "page"
+        else:
+            ptype = "post"
+        if static_minutes and int(static_minutes) != read_minutes:
+            warnings.append(f"[{pid}] 静态阅读时长 {static_minutes} 分钟 ≠ 实测 {read_minutes} 分钟（以实测为准）")
+        if h1 and title_tag and h1 != title_tag:
+            warnings.append(f"[{pid}] <title> 与 <h1> 不一致: 「{title_tag}」vs「{h1}」（以 h1 为准）")
+
+        posts.append({
+            "id": pid, "title": title, "date": date, "tag": tag,
+            "tags": tags, "excerpt": excerpt, "words": words,
+            "readMinutes": read_minutes, "headings": headings, "type": ptype,
+            "duplicateOf": None, "path": f,
+        })
+
+    # 重复检测：同日期 + 同标题 → 保留内容更长的，其余标 duplicateOf
+    by_key = {}
+    for p in posts:
+        if p["type"] != "post" or not p["date"]:
+            continue
+        key = (p["date"], p["title"])
+        by_key.setdefault(key, []).append(p)
+    for key, group in by_key.items():
+        if len(group) < 2:
+            continue
+        group.sort(key=lambda p: -p["words"])
+        canon = group[0]
+        for dup in group[1:]:
+            dup["duplicateOf"] = canon["id"]
+            warnings.append(f"[{dup['id']}] 与 {canon['id']} 重复（同日同标题）→ 已标记 duplicateOf，列表/统计自动排除")
+
+    posts.sort(key=lambda p: (p["date"] or "0000", p["id"]), reverse=True)
+
+    # 序列化（JSON 格式，逗号分隔 + null，严格 JS 兼容）
+    import json
+    out = []
+    out.append("/* ============================================================")
+    out.append(" * js/posts.js — AUTO-GENERATED by tools/build_posts.py")
+    out.append(" * 请勿手改！新增/修改文章后运行: py tools/build_posts.py")
+    out.append(" * 所有页面统计（文章数/标签/字数/阅读时长）以此文件为准")
+    out.append(" * ============================================================ */")
+    out.append("window.POSTS = [")
+    rows = []
+    for p in posts:
+        rows.append("  " + json.dumps({
+            "id": p["id"], "title": p["title"], "date": p["date"],
+            "tag": p["tag"], "tags": p["tags"], "excerpt": p["excerpt"],
+            "words": p["words"], "readMinutes": p["readMinutes"],
+            "headings": p["headings"], "type": p["type"],
+            "duplicateOf": p["duplicateOf"],
+        }, ensure_ascii=False))
+    out.append(",\n".join(rows))
+    out.append("];")
+    with open(OUT_JS, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(out) + "\n")
+
+    # 报告
+    articles = [p for p in posts if p["type"] == "post" and not p["duplicateOf"]]
+    tags_counter = Counter(t for p in articles for t in p["tags"] if t)
+    lines = []
+    lines.append(f"扫描: {len(files)} 个文件 | 文章: {len(articles)} | 演示页: {sum(1 for p in posts if p['type']=='page')} | 重复: {sum(1 for p in posts if p['duplicateOf'])}")
+    lines.append(f"总字数: {sum(p['words'] for p in articles)} | 总阅读时长: {sum(p['readMinutes'] for p in articles)} 分钟")
+    lines.append(f"标签数: {len(tags_counter)} -> {dict(tags_counter.most_common())}")
+    lines.append("")
+    for p in posts:
+        flags = []
+        if p["type"] != "post":
+            flags.append("PAGE")
+        if p["duplicateOf"]:
+            flags.append(f"DUP->{p['duplicateOf']}")
+        lines.append(f"{p['id']:<8} {p['date'] or '--------':<10} {p['words']:>6}字 {p['readMinutes']:>3}min  {' '.join(flags):<20} {p['title'][:40]}")
+    if warnings:
+        lines.append("")
+        lines.append("== WARNINGS ==")
+        lines.extend(warnings)
+    with open(REPORT, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
+
+    print("\n".join(lines))
+    print(f"\n[OK] 已生成 {OUT_JS}")
+
+
+if __name__ == "__main__":
+    main()

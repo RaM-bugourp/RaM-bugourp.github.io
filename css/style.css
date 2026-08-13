@@ -420,6 +420,33 @@ body::before {
     color: #9CA3AF;
 }
 
+/* 站点页脚 */
+.site-footer {
+    margin-top: 48px;
+    padding: 24px 0;
+    border-top: 1px solid rgba(72, 80, 96, 0.3);
+    text-align: center;
+    font-size: 13px;
+    color: #9CA3AF;
+}
+
+/* 归档月份计数徽标 */
+.archive-month-count {
+    font-size: 12px;
+    color: #9CA3AF;
+    background: rgba(139, 148, 158, 0.15);
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+/* 统计卡片数值 */
+.stat-value {
+    color: #D9B48B;
+    font-weight: 600;
+}
+
 /* 响应式 */
 @media (max-width: 800px) {
     .main-grid {
