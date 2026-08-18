@@ -5,9 +5,9 @@
  * ============================================================ */
 window.FRIENDS = [
     {
-        name: "Witherwithwinter's Blog",
-        url: "https://witherwithwinter.github.io/",
-        desc: "技术随笔、算法竞赛、生活感悟",
+        name: "Witherwithwinter",
+        url: "https://blog.hycode.qzz.io/",
+        desc: "纵观五域两天，我只悟出两个字——坚持！",
         avatar: "https://witherwithwinter-blog-avatar.oss-cn-wuhan-lr.aliyuncs.com/avatar.webp",
         tags: ["技术", "算法", "生活"]
     },
