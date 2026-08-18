@@ -6,25 +6,48 @@
     <meta name="description" content="文章归档 - RaM's Blog">
     <title>归档 · RaM's Blog</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/OIP.webp">
 </head>
 <body>
 <div class="container">
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">RaM's Blog</div>
+            <a class="logo" href="index.html">RaM's Blog</a>
+            <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false"><span></span></button>
             <div class="nav-links">
                 <a href="index.html">首页</a>
                 <a href="archive.html">归档</a>
                 <a href="friends.html">友链</a>
                 <a href="about.html">关于</a>
-                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
         </div>
     </nav>
 
     <div class="main-grid">
-        <main id="archiveContent">
-            <!-- 归档列表由 js/site.js 动态渲染（按年/月分组） -->
+        <main>
+            <section class="page-head">
+                <span class="eyebrow">ARCHIVE</span>
+                <h1>归档</h1>
+                <p>按时间浏览全部文章，也可以用同一套搜索、标签和排序规则快速定位内容。</p>
+            </section>
+
+            <section class="toolbar" aria-label="归档筛选">
+                <input type="search" data-post-search placeholder="搜索归档">
+                <select data-tag-select aria-label="按标签筛选"></select>
+                <select data-sort-select aria-label="归档排序">
+                    <option value="newest">最新优先</option>
+                    <option value="oldest">最早优先</option>
+                    <option value="longest">阅读最长</option>
+                    <option value="shortest">阅读最短</option>
+                </select>
+                <button class="button" type="button" data-clear-filters>清空</button>
+            </section>
+            <div class="filter-status" data-filter-status></div>
+
+            <div id="archiveContent">
+                <!-- 归档列表由 js/site.js 动态渲染 -->
+            </div>
         </main>
 
         <aside class="sidebar">
@@ -36,10 +59,13 @@
             </div>
 
             <div class="stats-card">
-                <div class="card-title">📊 站点统计</div>
-                <ul class="stats-list">
-                    <!-- 由 js/site.js 动态计算注入 -->
-                </ul>
+                <div class="card-title">站点统计</div>
+                <ul class="stats-list"></ul>
+            </div>
+
+            <div class="stats-card">
+                <div class="card-title">热门标签</div>
+                <div class="tag-cloud"></div>
             </div>
         </aside>
     </div>

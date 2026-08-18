@@ -3,57 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="关于 RaM ">
+    <meta name="description" content="关于 RaM">
     <title>关于 · RaM's Blog</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/OIP.webp">
 </head>
 <body>
 <div class="container">
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">RaM's Blog</div>
+            <a class="logo" href="index.html">RaM's Blog</a>
+            <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false"><span></span></button>
             <div class="nav-links">
                 <a href="index.html">首页</a>
                 <a href="archive.html">归档</a>
                 <a href="friends.html">友链</a>
                 <a href="about.html">关于</a>
-                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
         </div>
     </nav>
 
     <div class="main-grid">
         <main>
-            <div class="about-card">
-                <img class="avatar-img" src="images/OIP.webp" alt="RaM头像">
-                <h1>👤 关于我</h1>
-                <p>个人开发者，包含python全栈，Agent开发等</p>
-                <p>如果你想加入我们创立的组织 BuGroup ，企鹅群：777101401</p>
+            <article class="about-card">
+                <img class="about-avatar-img" src="images/OIP.webp" alt="RaM头像">
+                <h1>关于我</h1>
+                <p>个人开发者，主要做 Python 全栈、Agent 开发和小型业务系统落地。</p>
+                <p>如果你想加入我们创立的组织 BuGroup，企鹅群：777101401。</p>
 
                 <h2>技术栈</h2>
                 <ul>
-                    <li><strong>语言</strong>：Py / JS / PHP / CPP / Prompt</li>
-                    <li><strong>AI Agent</strong>：低模型训练 / 插件开发 / Prompt调优</li>
-                    <li><strong>业务范围</strong>：小程序开发 / Agent工作流 / OA系统搭建</li>
+                    <li><strong>语言</strong>：Python / JavaScript / PHP / C++ / Prompt</li>
+                    <li><strong>AI Agent</strong>：模型微调 / 插件开发 / Prompt 调优 / 工作流设计</li>
+                    <li><strong>业务范围</strong>：小程序开发 / Agent 工作流 / OA 系统搭建 / 自动化工具</li>
                 </ul>
 
                 <h2>在售业务</h2>
                 <ul>
-                    <li><strong>ERP</strong>：适用于电商的自动上品，包含完整AI链路底座的操作台框架</li>
-                    <li><strong>OA底座</strong>：包含账号表单管理，权限分层，登录验证的简单设计</li>
-                    <li><strong>#DataAgent</strong>：支持db-gpt代部署，包含RAG，文本分析，知识库建造等功能，服务包含skill筛选安装，保证满足客户需求</li>
-                    <li><strong>定制项目</strong>：Agent协作开发，prompt微调，垂直领域需求都可以定制项目，价格实惠，给钱就做</li>
+                    <li><strong>ERP</strong>：适用于电商的自动上品系统，包含完整 AI 链路底座的操作台框架。</li>
+                    <li><strong>OA 底座</strong>：账号表单管理、权限分层、登录验证和基础后台设计。</li>
+                    <li><strong>DataAgent</strong>：支持 db-gpt 代部署，包含 RAG、文本分析、知识库建造和 skill 筛选安装。</li>
+                    <li><strong>定制项目</strong>：Agent 协作开发、Prompt 微调、垂直领域需求都可以按项目定制。</li>
                 </ul>
 
                 <h2>联系方式</h2>
-                <p>📧 邮箱：1963561552@qq.com</p>
-                <p>🐙 GitHub：<a href="https://github.com/RaM-bugourp" target="_blank">github.com/RaM-bugourp</a></p>
-                <p>🫰 有Agent调优＆开发需求＆购买token + vx : l_m_RaM （这里是小写L）</p>
-
-                <h2>关于本站</h2>
-                <p>本站使用纯 HTML/CSS/JS 构建，主题深色，代码开源。</p>
-                <p style="font-size: 13px; color: #9CA3AF;">技术细节：文章元信息由 <code>tools/build_posts.py</code> 从 <code>posts/*.html</code> 自动扫描生成（单一真相源），所有页面统计动态计算，新增文章无需改动任何页面。</p>
-            </div>
+                <p>邮箱：bu_g_roup@qq.com</p>
+                <p>GitHub：<a href="https://github.com/RaM-bugourp" target="_blank" rel="noopener noreferrer">github.com/RaM-bugourp</a></p>
+                <p>Agent 调优、开发需求、购买 token 可加微信：l_m_RaM（这里是小写 L）。</p>
+            </article>
         </main>
 
         <aside class="sidebar">
@@ -65,10 +63,13 @@
             </div>
 
             <div class="stats-card">
-                <div class="card-title">📊 站点统计</div>
-                <ul class="stats-list">
-                    <!-- 由 js/site.js 动态计算注入 -->
-                </ul>
+                <div class="card-title">站点统计</div>
+                <ul class="stats-list"></ul>
+            </div>
+
+            <div class="stats-card">
+                <div class="card-title">最新文章</div>
+                <div class="mini-list" data-recent-posts="root"></div>
             </div>
         </aside>
     </div>

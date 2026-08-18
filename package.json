@@ -1,0 +1,11 @@
+{
+  "name": "ram-blog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "test": "node tools/smoke.mjs",
+    "check": "npm run build && npm test",
+    "serve": "node tools/serve.mjs"
+  }
+}

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="RaM's Blog - 技术随笔、开发经验、生活思考">
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta name="description" content="RaM's Blog - 技术随笔、开发经验、Agent 工作流与个人项目记录">
     <title>RaM's Blog</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" sizes="32x32" href="images/OIP.webp">
@@ -15,21 +14,42 @@
 <div class="container">
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">RaM's Blog</div>
+            <a class="logo" href="index.html">RaM's Blog</a>
+            <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false"><span></span></button>
             <div class="nav-links">
                 <a href="index.html">首页</a>
                 <a href="archive.html">归档</a>
                 <a href="friends.html">友链</a>
                 <a href="about.html">关于</a>
-                <a href="https://github.com/RaM-bugourp" target="_blank">GitHub</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
         </div>
     </nav>
 
     <div class="main-grid">
         <main>
-            <div id="homePage">
-                <!-- 文章列表由 js/site.js 动态渲染（数据源 js/posts.js） -->
+            <section class="page-head">
+                <span class="eyebrow">TECH / AGENT / BUILD LOG</span>
+                <h1>把折腾过的东西沉淀成文章。</h1>
+                <p>这里记录全栈开发、Agent 工作流、后端规范和个人项目复盘。文章列表、统计、标签和阅读时间都由构建脚本自动生成。</p>
+                <div class="metric-strip" id="siteMetrics"></div>
+            </section>
+
+            <section class="toolbar" aria-label="文章筛选">
+                <input type="search" data-post-search placeholder="搜索标题、摘要、标签">
+                <select data-tag-select aria-label="按标签筛选"></select>
+                <select data-sort-select aria-label="文章排序">
+                    <option value="newest">最新优先</option>
+                    <option value="oldest">最早优先</option>
+                    <option value="longest">阅读最长</option>
+                    <option value="shortest">阅读最短</option>
+                </select>
+                <button class="button" type="button" data-clear-filters>清空</button>
+            </section>
+            <div class="filter-status" data-filter-status></div>
+
+            <div id="homePage" class="post-list">
+                <!-- 文章列表由 js/site.js 动态渲染 -->
             </div>
         </main>
 
@@ -42,17 +62,18 @@
             </div>
 
             <div class="stats-card">
-                <div class="card-title">📊 站点统计</div>
-                <ul class="stats-list">
-                    <!-- 由 js/site.js 动态计算注入 -->
-                </ul>
+                <div class="card-title">站点统计</div>
+                <ul class="stats-list"></ul>
             </div>
 
             <div class="stats-card">
-                <div class="card-title">🏷️ 热门标签</div>
-                <div class="tag-cloud">
-                    <!-- 由 js/site.js 动态生成（按使用频率） -->
-                </div>
+                <div class="card-title">热门标签</div>
+                <div class="tag-cloud"></div>
+            </div>
+
+            <div class="stats-card">
+                <div class="card-title">最新文章</div>
+                <div class="mini-list" data-recent-posts="root"></div>
             </div>
         </aside>
     </div>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>关于Agent开发：六个设计核心与记忆系统的本质 · RaM's Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="logo" href="../index.html">RaM's Blog</a>
+            <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false"><span></span></button>
+            <div class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="../archive.html">归档</a>
+                <a href="../friends.html">友链</a>
+                <a href="../about.html">关于</a>
+                <a href="https://github.com/RaM-bugourp" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <main>
+            <div class="post-card post-detail">
+                <span class="post-tag"># Agent设计</span>
+                <h1>关于Agent开发：六个设计核心与记忆系统的本质</h1>
+                <div class="post-meta" id="postMeta">📅 2026-08-18 · 🕒 3分钟阅读</div>
+                <div class="post-content">
+                    <p>不难发现，Agent 协作的比重和地位正在不断上升。</p>
+
+                    <p>主要原因从我的角度来说，并不是模型本身，而是因为自动化任务的需求越来越多，同时大部分人并不擅长 prompt 或者 harness 工程——做不到为 LLM 编排清晰合理的规划以及执行路线。</p>
+
+                    <p>所以 Agent 协作应运而生，用于任务前预编排工作流并验证可行性。当然受篇幅限制，我们今天只讨论 Agent 开发本身。</p>
+
+                    <h2>Agent 的设计核心有六个</h2>
+                    <p>分别是：<strong>感知、推理、规划、行动、记忆、反思</strong>。</p>
+                    <p>你会发现，不论围绕哪一个进行设计，它都似乎是 Agent 不可替代的一部分：</p>
+                    <ul>
+                        <li>如果<strong>感知</strong>机制粗糙，会导致上下文污染，噪声过多，后续所有内容都是无效推理；</li>
+                        <li>如果<strong>推理</strong>没有约束和方向把控，会导致污染堆积，影响方向；</li>
+                        <li><strong>规划</strong>决定了任务成果的上下限，如果你不是为了单纯测试 LLM 的 plan 水平，不要完全让它负责，而是人定拓扑，LLM填空</li>
+                        <li><strong>记忆与反思</strong>看似不重要，但在长期任务和多轮任务中，Agent 区别于 LLM 的地方正是自我迭代。</li>
+                        <li>至于<strong>行为</strong>则是上述内容的具体表现和验证，但是在考虑Agent-环境关系时，却是最麻烦的一步</li>
+                    </ul>
+
+                    <h2>LLM 的边界在哪里</h2>
+                    <p>总体来说，你可以这样理解：LLM 会推理，但推理不可能完全正确，而是方向上符合逻辑、存在一些小的逻辑漏洞。在长推理任务下，这些小的逻辑漏洞会被它自己视为正确的结论，然后拿着这种错误结论继续推理，最后不断堆积，导致整个任务逻辑崩溃。</p>
+                    <p>所以我们需要<strong>管理上下文、约束推理、进行剪枝，同时建立记忆系统</strong>。</p>
+
+                    <h2>记忆系统 vs 一份总结文档</h2>
+                    <p>你可能会想到：现在很多模型都有总结功能，每一轮工作下来都能总结汇报，我把汇报清洗筛选成 markdown 文档供 LLM 调用参考，这与 memory system 的本质区别是什么？</p>
+                    <p>这就是你认识 Agent 的第一步。</p>
+
+                    <div class="highlight-box">
+                        <strong>你可以粗略地把 Agent 看做一个人</strong><br>
+                        markdown文档是放在桌上的笔记本，你每次要用都得翻一遍；memory system是大脑自带的记忆归档和调取能力，该忘的忘，该记的记，该关联的自动关联
+                    </div>
+
+                    <h2>研究 Agent 要考虑的问题</h2>
+                    <p>上面这些内容已经足够搭建初步认知了。如果你感兴趣，可以按照这个分类继续研究 Agent 的设计以及需要考虑的问题：<strong>可靠性、性能问题、成本问题、调试问题、安全问题、可观测性以及评估问题</strong>。</p>
+
+                    <h2>下篇预告</h2>
+                    <p>下篇我们聊聊围绕 Agent 基类（status & role）如何设计你的第一个 Agent 并执行一个任务。</p>
+
+                    <p>—— RaM</p>
+                </div>
+                <div class="post-footer" style="margin-top: 24px;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img class="avatar-img" src="../images/OIP.webp" alt="RaM头像">
+                <div class="profile-name">RaM</div>
+                <div class="profile-bio">全栈开发 · Agent人柱力</div>
+                <div class="profile-bio">热爱代码，喜欢折腾</div>
+            </div>
+            <div class="stats-card">
+                <div class="card-title">📊 站点统计</div>
+                <ul class="stats-list">
+                    <!-- 由 js/site.js 动态计算注入 -->
+                </ul>
+            </div>
+
+        </aside>
+    </div>
+</div>
+
+    <footer class="site-footer"></footer>
+</div>
+
+<script src="../js/posts.js"></script>
+<script src="../js/data/friends.js"></script>
+<script src="../js/site.js"></script>
+<script src="../js/toc.js"></script>
+</body>
+</html>
