@@ -24,5 +24,12 @@ window.FRIENDS = [
         desc: "若在许我少年时，一两黄金一两风",
         avatar: "https://img-reg-ab.imagency.cn/e/f4faf1e3df455e46da6a9d0b8efe52e7.png",
         tags: ["生活", "随笔"]
+    },
+    {
+        name: "0x2f",
+        url: "https://0x2f.cc.cd",
+        desc: "I set an alarm to wake me up",
+        avatar: "https://0x2f.cc.cd/avatar.webp",
+        tags: ["技术", "随笔"]
     }
 ];
