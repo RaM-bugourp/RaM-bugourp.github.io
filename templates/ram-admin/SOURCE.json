@@ -1,0 +1,88 @@
+{
+  "project": "Ram-AdminX",
+  "repository": "https://github.com/RaM-bugourp/ram-admin",
+  "head": "3a4fd98bb98030c67261a4973048c6ba133a828e",
+  "statement": "本项目本地运行截图；数据为演示数据",
+  "runtime": "Django + SQLite 后端与 Vue 前端真实运行；AI 为未配置外部模型的原生 mock。本站仅展示截图。",
+  "adaptation": "本轮运行包含前端编译与登录适配；二次开发归属 RaM-bugourp，保留原项目及原作者归属。",
+  "screenshots": [
+    {
+      "file": "01-login-desktop.png",
+      "route": "/login",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "captured_at": "2026-11-17T10:54:51.787655+00:00",
+      "head": "3a4fd98bb98030c67261a4973048c6ba133a828e",
+      "bytes": 15183,
+      "sha256": "df7098ed2fab3bb7fa3eb2e5f5126a63719dc0575be9ff9683ccc29ce033a662",
+      "label": "登录页"
+    },
+    {
+      "file": "02-dashboard-desktop.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "captured_at": "2026-11-17T10:54:54.042997+00:00",
+      "head": "3a4fd98bb98030c67261a4973048c6ba133a828e",
+      "bytes": 33661,
+      "sha256": "69ada1e4f3fb37ddddbda3b1a14f5118c0a4bdce628305cebe054abd7dd7008d",
+      "label": "首页仪表盘"
+    },
+    {
+      "file": "03-users-desktop.png",
+      "route": "/system/users",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "captured_at": "2026-11-17T10:54:55.061475+00:00",
+      "head": "3a4fd98bb98030c67261a4973048c6ba133a828e",
+      "bytes": 55505,
+      "sha256": "88f7de9ac99db556cb7f9366ab6f10e3e52f2af29bc9e589c919b209726dd6c1",
+      "label": "用户管理"
+    },
+    {
+      "file": "04-roles-desktop.png",
+      "route": "/system/roles",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "captured_at": "2026-11-17T10:54:56.056650+00:00",
+      "head": "3a4fd98bb98030c67261a4973048c6ba133a828e",
+      "bytes": 42251,
+      "sha256": "92b6ad2cb30f06afc8b35fc2bc0c6037db98d08f21b36b0b6279237d8bc4cb1f",
+      "label": "角色管理"
+    },
+    {
+      "file": "05-approvals-desktop.png",
+      "route": "/ai/approval",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "captured_at": "2026-11-17T10:54:57.058534+00:00",
+      "head": "3a4fd98bb98030c67261a4973048c6ba133a828e",
+      "bytes": 27866,
+      "sha256": "a15c54128e7603e546b39ddd8920f17941c9cc6df9a2067efa01e7d83c5a87f3",
+      "label": "审批页面"
+    },
+    {
+      "file": "06-dashboard-mobile.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "captured_at": "2026-11-17T10:54:58.048523+00:00",
+      "head": "3a4fd98bb98030c67261a4973048c6ba133a828e",
+      "bytes": 20004,
+      "sha256": "10b425dfee2875f2bc70fd214a0ecc8e5450ec83c2fa48b2c21462c7d2c9abf1",
+      "label": "手机首页"
+    }
+  ]
+}

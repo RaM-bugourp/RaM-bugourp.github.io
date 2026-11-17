@@ -462,14 +462,14 @@ window.MARKET_CATALOG = {
     },
     {
       "id": "W06",
-      "name": "后台界面",
+      "name": "ram-admin 后台管理系统",
       "category": "网站模板",
       "group": "templates",
-      "description": "用数据卡片、表格与筛选呈现管理界面；不含真实后台。",
-      "scope": "原创无图静态风格样板，可离线打开；确认内容与修改范围后定制。仅界面演示，不连接真实数据、账号或业务系统。",
+      "description": "Ram-AdminX 本地真实运行截图：仪表盘、用户管理、角色管理与审批页面。",
+      "scope": "本项目本地运行截图；数据为演示数据。Django + SQLite 后端与 Vue 前端已本地运行；AI 为原生 mock，未接外部模型。本站仅提供截图图库，不提供在线后台登录。",
       "inputs": "页面用途、文字内容、获授权素材、希望修改的地方。",
-      "deliverables": "约定范围内的静态页面与交接说明；域名、托管及业务功能另确认。",
-      "demo": "templates/dashboard/index.html",
+      "deliverables": "按约定范围交付二次开发与部署说明；业务功能、运行环境与维护另确认。",
+      "demo": "templates/ram-admin/index.html",
       "sampleIds": [],
       "pricing": {
         "baseCny": null,
@@ -477,10 +477,10 @@ window.MARKET_CATALOG = {
         "note": "先看模板，确认内容、范围、报价与排期。"
       },
       "preparedTemplate": {
-        "name": "SB Admin 2",
-        "source": "https://github.com/StartBootstrap/startbootstrap-sb-admin-2",
-        "license": "MIT",
-        "licenseFile": "templates/dashboard/LICENSE"
+        "name": "Ram-AdminX",
+        "source": "https://github.com/RaM-bugourp/ram-admin",
+        "license": "原项目声明与二开授权",
+        "licenseFile": "templates/ram-admin/NOTICE.html"
       }
     }
   ],
@@ -602,14 +602,14 @@ window.MARKET_CATALOG = {
     },
     {
       "id": "W06",
-      "name": "后台界面",
+      "name": "ram-admin 后台管理系统",
       "category": "网站模板",
       "group": "templates",
-      "description": "用数据卡片、表格与筛选呈现管理界面；不含真实后台。",
-      "scope": "原创无图静态风格样板，可离线打开；确认内容与修改范围后定制。仅界面演示，不连接真实数据、账号或业务系统。",
+      "description": "Ram-AdminX 本地真实运行截图：仪表盘、用户管理、角色管理与审批页面。",
+      "scope": "本项目本地运行截图；数据为演示数据。Django + SQLite 后端与 Vue 前端已本地运行；AI 为原生 mock，未接外部模型。本站仅提供截图图库，不提供在线后台登录。",
       "inputs": "页面用途、文字内容、获授权素材、希望修改的地方。",
-      "deliverables": "约定范围内的静态页面与交接说明；域名、托管及业务功能另确认。",
-      "demo": "templates/dashboard/index.html",
+      "deliverables": "按约定范围交付二次开发与部署说明；业务功能、运行环境与维护另确认。",
+      "demo": "templates/ram-admin/index.html",
       "sampleIds": [],
       "pricing": {
         "baseCny": null,
@@ -617,13 +617,13 @@ window.MARKET_CATALOG = {
         "note": "先看模板，确认内容、范围、报价与排期。"
       },
       "preparedTemplate": {
-        "name": "SB Admin 2",
-        "source": "https://github.com/StartBootstrap/startbootstrap-sb-admin-2",
-        "license": "MIT",
-        "licenseFile": "templates/dashboard/LICENSE"
+        "name": "Ram-AdminX",
+        "source": "https://github.com/RaM-bugourp/ram-admin",
+        "license": "原项目声明与二开授权",
+        "licenseFile": "templates/ram-admin/NOTICE.html"
       }
     }
   ],
   "policy": "先看模板，确认内容、范围、报价与排期。",
-  "attribution": "六个在线示例为本站原创无图静态风格样板；第三方模板源码另按各自许可证使用，作者归属不因定制转移。"
+  "attribution": "五类原创无图静态风格样板与 ram-admin 本地真实运行截图库；保留第三方原作者及二次开发归属。"
 };
