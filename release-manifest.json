@@ -2,6 +2,26 @@
   "schema": 1,
   "files": [
     {
+      "path": "assets/qr/home-qr.png",
+      "bytes": 1719,
+      "sha256": "e943855acba87900564e7f9c7fde9e1255240cf1f71ceff86020d7e958f7307b"
+    },
+    {
+      "path": "assets/qr/services-qr.png",
+      "bytes": 2332,
+      "sha256": "2c77d0536b84dd131669d0880bab7f692452079bf6f98aa4d80d23cd9c957d77"
+    },
+    {
+      "path": "assets/qr/home-qr.svg",
+      "bytes": 10490,
+      "sha256": "77633631df9a7335bac0efefcc73818547de788d04452e26362320ae77c1596f"
+    },
+    {
+      "path": "assets/qr/services-qr.svg",
+      "bytes": 12468,
+      "sha256": "04aa415f10ee7fa6539ac7fd990ff773789a589a77078e3310c49c79eb2e5a11"
+    },
+    {
       "path": "templates/ram-admin/01-login-desktop.png",
       "bytes": 15183,
       "sha256": "df7098ed2fab3bb7fa3eb2e5f5126a63719dc0575be9ff9683ccc29ce033a662"
@@ -58,18 +78,18 @@
     },
     {
       "path": "index.html",
-      "bytes": 8885,
-      "sha256": "8e343f484a1a87058e27601450b10c0b3fb8819b418f123fa86519f663770449"
+      "bytes": 10713,
+      "sha256": "e1e72f3f8e2706af904e7b058da09e285d9cfb8a137e027d38a8310193295a6a"
     },
     {
       "path": "services.html",
-      "bytes": 7815,
-      "sha256": "21dd0f72fc76c29b2e17c84dacd245bfee23f0eca89cc0a681d643a1708f86af"
+      "bytes": 9652,
+      "sha256": "a0846211aab27767ca9fce7bbadafcb8a80f655adc265716e01192f89e6c747d"
     },
     {
       "path": "styles.css",
-      "bytes": 19055,
-      "sha256": "1aadd22e9cb5b2db3d660298dd8252f5f84e3f75767fa7fc81f1542118ceb481"
+      "bytes": 20358,
+      "sha256": "acd12cfec9644e79811a8ce6636bad7bbf19804c41ad52c5f321a69356d0328e"
     },
     {
       "path": "catalog.js",
