@@ -20,7 +20,7 @@ window.MARKET_CATALOG = {
     },
     {
       "id": "A02",
-      "name": "代码快评 Top 3",
+      "name": "代码快查",
       "category": "代码服务",
       "description": "快速定位提交或代码片段中最值得先处理的三个问题。",
       "scope": "小范围代码口述快评，不替代全面审计。",
@@ -52,7 +52,7 @@ window.MARKET_CATALOG = {
     },
     {
       "id": "A04",
-      "name": "救命 Debug",
+      "name": "Debug",
       "category": "代码服务",
       "description": "围绕一个可复现问题定位根因，给出最小修补与回归方向。",
       "scope": "单一问题或小模块；是否能修复需先复现，不承诺固定行数或一次解决。",
@@ -153,22 +153,6 @@ window.MARKET_CATALOG = {
       "group": "technical"
     },
     {
-      "id": "A10",
-      "name": "Token 账单瘦身",
-      "category": "AI 内容与流程",
-      "description": "从脱敏调用统计出发，提出缓存、截断或模型分流方向。",
-      "scope": "诊断与最多三条改动建议，不替代财务核算。",
-      "inputs": "脱敏调用账单、基线、上下文长度和目标。",
-      "deliverables": "诊断摘要与改动清单。",
-      "sampleIds": [],
-      "pricing": {
-        "baseCny": 49,
-        "originalPriceText": "¥49",
-        "note": "参考价格；确认内容、范围与排期后报价。"
-      },
-      "group": "technical"
-    },
-    {
       "id": "A11",
       "name": "上线代做",
       "category": "部署与交付",
@@ -202,36 +186,21 @@ window.MARKET_CATALOG = {
       "group": "technical"
     },
     {
-      "id": "A13",
-      "name": "两天救援通道",
-      "category": "代码服务",
-      "description": "限量排班的短时问题处理通道，按约定次数与时长服务。",
-      "scope": "最多三次、每次不超过45分钟的排班服务，不是源码商品或无限支持。",
-      "inputs": "问题清单、优先级、可用时间与授权材料。",
-      "deliverables": "每次处理结论、下一步与未完成项。",
+      "id": "A14",
+      "name": "Harness工程文档代写",
+      "category": "工程规范与规划",
+      "description": "基于项目现状补充适用的 Harness 工程规范与长期规划，让目标、阶段任务、责任和验证有据可查。",
+      "scope": "文档服务：参考本地 Harness 默认设定与 1.0.0 指南，衔接现有规划，不另建竞争权威；不自动包含业务实现、生产部署或长期代维护。",
+      "inputs": "获授权的项目现状、现有规划与规范、目标/非目标、约束、责任人及验收方式；未知项如实标注，请勿提交密钥。",
+      "deliverables": "可编辑 Markdown 规范与长期规划：现状/事实源、目标与非目标、现有规划衔接、路由与 owner 责任、分阶段任务与可观察验收条件、验证清单、风险/未知/阻碍及下一步。文档接线或离线检查不等于产品验收通过，也不代表运行时自动强制门禁。",
       "sampleIds": [],
       "pricing": {
-        "baseCny": 199,
-        "originalPriceText": "¥199",
-        "note": "参考价格；确认内容、范围与排期后报价。"
+        "baseCny": 9.9,
+        "maxCny": 29.9,
+        "originalPriceText": "¥9.9–29.9",
+        "note": "¥9.9起，单次文档服务报价封顶¥29.9；按约定范围确认，不自动增加费用。范围过大先缩小或分阶段约定，不突破本项封顶。"
       },
       "group": "technical"
-    },
-    {
-      "id": "B02",
-      "name": "大肥鱼BOT部署",
-      "category": "桌面工具",
-      "description": "代理QQ账号：人设、触发规则与消息回复配置",
-      "scope": "客户自备并授权的QQ账号；配置人设、触发规则与消息回复。不含语音、自启、托管及平台可用性保证。",
-      "inputs": "自备并授权的QQ账号、期望人设、触发与回复规则。",
-      "deliverables": "约定环境内的部署配置、规则说明与交接。",
-      "sampleIds": [],
-      "pricing": {
-        "baseCny": 19,
-        "originalPriceText": "¥19",
-        "note": "参考价格；确认内容、范围与排期后报价。"
-      },
-      "group": "creative"
     },
     {
       "id": "B04",
