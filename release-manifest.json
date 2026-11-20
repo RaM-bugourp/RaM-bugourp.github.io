@@ -32,6 +32,11 @@
       "sha256": "42d42ecc3496bd25e3e8a1989c32f80141a170d6819a9badb33bf475cabe48b9"
     },
     {
+      "path": "assets/contact/contact-qq-qr.png",
+      "bytes": 115811,
+      "sha256": "d67db0912c13df20914625c11b92e29eb0cfb4f387bbfe6b449b122a73824072"
+    },
+    {
       "path": "templates/ram-admin/01-login-desktop.png",
       "bytes": 15183,
       "sha256": "df7098ed2fab3bb7fa3eb2e5f5126a63719dc0575be9ff9683ccc29ce033a662"
@@ -88,18 +93,18 @@
     },
     {
       "path": "index.html",
-      "bytes": 14394,
-      "sha256": "d8d2ef069cc209857313c46ec841de5428b02d2bc39270dc58aefd6334c391dc"
+      "bytes": 15699,
+      "sha256": "839bf4d07921e28a25a8a4451b1e1b416a20cf7142ef4fce88ee20b724d92393"
     },
     {
       "path": "services.html",
-      "bytes": 9663,
-      "sha256": "bb64e617b53abe1d695b8b738a6353432381fb12d3aa3debc9efc3e98872d680"
+      "bytes": 10968,
+      "sha256": "6701bc968d0dcf123db7beb605c9b5e0045a37c21f42418c7fe1cc5318e84c84"
     },
     {
       "path": "styles.css",
-      "bytes": 24376,
-      "sha256": "d6eae9e5a13d5435d4d47e7a174a161b1fb1e8930a2a936a560a991d232523a5"
+      "bytes": 25901,
+      "sha256": "6671a84084f3cf90fcfc8d6fffcde012e0bb9cc998c93af6ec976e0ba07fd449"
     },
     {
       "path": "catalog.js",
