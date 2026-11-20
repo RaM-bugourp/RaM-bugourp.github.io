@@ -593,6 +593,34 @@ window.MARKET_CATALOG = {
       }
     }
   ],
+  "showcases": [
+    {
+      "id": "hangjian",
+      "name": "行间",
+      "kind": "外部部署的在线样例（非客户案例）",
+      "url": "https://hangjian-blog.pages.dev/",
+      "style": "个人写作存档：文章列表、按年归档、标签与 RSS 订阅，排版克制、留白多。",
+      "tech": ["Astro", "静态博客", "归档 / 标签", "RSS"],
+      "serviceId": "W05",
+      "serviceNote": "W05 博客内容站 · 按模板与修改范围报价",
+      "screenshot": "assets/showcase/hangjian.webp",
+      "screenshotAlt": "「行间」首页的在线页面截图（2026-11-20 截取）",
+      "capturedAt": "2026-11-20"
+    },
+    {
+      "id": "gathered-scenes",
+      "name": "拾景集 Gathered Scenes",
+      "kind": "外部部署的在线样例（非客户案例）",
+      "url": "https://gathered-scenes.pages.dev/",
+      "style": "纸上海报风格博客：每篇文章是一张海报，撕纸边缘与单色印刷感，带漂浮纸片和滚动动效。",
+      "tech": ["three.js", "GSAP 动效", "撕纸视觉", "海报墙"],
+      "serviceId": "W05",
+      "serviceNote": "W05 博客内容站 · 动效与视觉定制需按范围确认",
+      "screenshot": "assets/showcase/gathered-scenes.webp",
+      "screenshotAlt": "「拾景集」首页的在线页面截图（2026-11-20 截取）",
+      "capturedAt": "2026-11-20"
+    }
+  ],
   "policy": "先看模板，确认内容、范围、报价与排期。",
   "attribution": "五类原创无图静态风格样板与 ram-admin 本地真实运行截图库；保留第三方原作者及二次开发归属。"
 };

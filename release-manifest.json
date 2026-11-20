@@ -22,6 +22,16 @@
       "sha256": "04aa415f10ee7fa6539ac7fd990ff773789a589a77078e3310c49c79eb2e5a11"
     },
     {
+      "path": "assets/showcase/hangjian.webp",
+      "bytes": 9304,
+      "sha256": "339140cfb7d9f4448d33ccaf1a8f3e7df796e49277cc18418651ecb1057fdad2"
+    },
+    {
+      "path": "assets/showcase/gathered-scenes.webp",
+      "bytes": 34198,
+      "sha256": "42d42ecc3496bd25e3e8a1989c32f80141a170d6819a9badb33bf475cabe48b9"
+    },
+    {
       "path": "templates/ram-admin/01-login-desktop.png",
       "bytes": 15183,
       "sha256": "df7098ed2fab3bb7fa3eb2e5f5126a63719dc0575be9ff9683ccc29ce033a662"
@@ -78,23 +88,23 @@
     },
     {
       "path": "index.html",
-      "bytes": 10713,
-      "sha256": "e1e72f3f8e2706af904e7b058da09e285d9cfb8a137e027d38a8310193295a6a"
+      "bytes": 14394,
+      "sha256": "d8d2ef069cc209857313c46ec841de5428b02d2bc39270dc58aefd6334c391dc"
     },
     {
       "path": "services.html",
-      "bytes": 9652,
-      "sha256": "a0846211aab27767ca9fce7bbadafcb8a80f655adc265716e01192f89e6c747d"
+      "bytes": 9663,
+      "sha256": "bb64e617b53abe1d695b8b738a6353432381fb12d3aa3debc9efc3e98872d680"
     },
     {
       "path": "styles.css",
-      "bytes": 20358,
-      "sha256": "acd12cfec9644e79811a8ce6636bad7bbf19804c41ad52c5f321a69356d0328e"
+      "bytes": 24376,
+      "sha256": "d6eae9e5a13d5435d4d47e7a174a161b1fb1e8930a2a936a560a991d232523a5"
     },
     {
       "path": "catalog.js",
-      "bytes": 27285,
-      "sha256": "78735e825e80340564538daee85cff82d29e4c8200b6b060dbbf9d8765643a27"
+      "bytes": 28664,
+      "sha256": "327026a6e75eff74b4ab922542869e32b8f4c9bd6aae19a55c75423c646b9e7c"
     },
     {
       "path": "core.js",
@@ -103,8 +113,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 8224,
-      "sha256": "6f7d0d5a97db07e9b838fb01c721ff27a6d3ec58335f79e7ab5832af9f67b5be"
+      "bytes": 8569,
+      "sha256": "f49883c2c18b5b0f4a668748e6740ce94ebada3b9d9c403f2b79d970113c03cc"
     },
     {
       "path": ".nojekyll",
